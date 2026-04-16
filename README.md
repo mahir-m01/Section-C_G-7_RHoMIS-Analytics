@@ -26,7 +26,7 @@
 | Manya Verma | `manyaverma727` |
 | Rajat Srivastav | `rajatrsrivastav` |
 | Rajdeep Sanyal | `rajdeep-2004` |
-| Sankalp | |
+| Sankalp | `Sankalp13353` |
 
 ---
 
