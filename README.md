@@ -21,12 +21,12 @@
 
 | Name | GitHub Username |
 |---|---|
-| Mahir Abdullah | TBA |
-| Manas Vivek Saxena | TBA |
-| Manya Verma | TBA |
-| Rajat Srivastav | TBA |
-| Rajdeep Sanyal | TBA |
-| Sankalp | TBA |
+| Mahir Abdullah | `mahir-m01` |
+| Manas Vivek Saxena | `ManasSaxena14` |
+| Manya Verma | `manyaverma727` |
+| Rajat Srivastav | `rajatrsrivastav` |
+| Rajdeep Sanyal | `rajdeep-2004` |
+| Sankalp | |
 
 ---
 
