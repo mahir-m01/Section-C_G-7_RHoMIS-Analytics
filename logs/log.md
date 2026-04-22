@@ -61,7 +61,35 @@ All 26 fixes verified against ETL pipeline. Notebooks now produce identical outp
 
 ### Logs Updated
 - `01_data_summary.md`: Corrected column references, updated next steps
-- `02_data_cleaning_methodology.md.md`: Complete rewrite to reflect actual cleaning methodology (no KPIs, structural only)
+- `02_data_cleaning_methodology.md.md`: Complete rewrite to reflect actual cleaning methodology (77 columns, no KPIs, structural only)
+
+---
+
+## 2026-04-22: Data Cleaning & ETL Pipeline Rewrite (Commit 8cb40fd)
+
+### Summary
+Complete rewrite of the ETL pipeline (`scripts/etl_pipeline.py`) to align with the core cleaning contract. The pipeline now serves as the canonical source of truth for all data transformations.
+
+### Key Enhancements
+- **Extraction:** Optimized loading using `usecols` (75 required columns) for memory efficiency.
+- **Spatial Metrics:** Integrated a comprehensive `UNIT_HA` conversion table supporting diverse units (timad, ares, manzanas, bigha, etc.).
+- **Demographics:** 
+  - Dynamic age correction using survey year column (not hardcoded).
+  - Strict age plausibility ceiling at 110 years.
+  - Derived `household_size_derived` from 8 age-band columns with 0% missingness.
+- **Integrity:**
+  - No imputation policy enforced (except derived household size).
+  - NaN values preserved for income and `count_people`.
+  - HFIAS/FIES exported as cleaned strings.
+- **Gender & Resource Control:** Included 8 specialized columns for revenue and eating control analysis.
+
+### Final Output Statistics
+- **Total Rows:** 54,873 (Zero attrition approach)
+- **Total Columns:** 77 (across 7 domains)
+- **Files Generated:** `rhomis_cleaned.csv`, `rhomis_cleaned.csv.gz`, audit log, and summary JSON.
+
+### Verification
+Pipeline output verified for structural integrity. Successfully handles global unit variations and demographic anomalies.
 
 ---
 
