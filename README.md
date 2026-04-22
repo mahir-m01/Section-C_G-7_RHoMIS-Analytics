@@ -13,7 +13,7 @@
 | **Sector** | Agriculture / Rural Development |
 | **Team ID** | G-7 |
 | **Section** | C |
-| **Faculty Mentor** | TBA |
+| **Faculty Mentor** | Archit Raj |
 | **Institute** | Newton School of Technology |
 | **Submission Date** | TBA |
 
