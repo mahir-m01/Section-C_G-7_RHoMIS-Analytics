@@ -1,5 +1,36 @@
 # Project Activity Log
 
+## 2026-04-23: EDA and Statistical Analysis Finalization
+
+### Summary
+Finalized the analysis phase notebooks and prepared a clean handoff for the KPI and Tableau-load phase.
+
+### Notebook 03 — EDA
+- Built and executed `03_eda.ipynb`.
+- Added pre-analysis checks for valid populations, missingness, currency issues, and indicator coverage.
+- Created defensible analysis fields for food shortage, crop diversity, land productivity, PPP-normalized income position, FIES, and HFIAS.
+- Kept the notebook focused on exploration and candidate dashboard metrics, not final KPI ownership.
+
+### Notebook 04 — Statistical Analysis
+- Built and executed `04_statistical_analysis.ipynb`.
+- Added hypothesis tests, robust numeric comparisons, correlation checks, logistic regression, and vulnerability segmentation.
+- Confirmed key supported drivers: land productivity, land scale, education, income position, and irrigation.
+- Kept results framed as association, not causation.
+
+### Notebook 05 — Final Load Prep Template
+- Replaced full export logic with a lightweight template.
+- Added placeholders for final KPI framework, dashboard-field rebuild, final field selection, and export.
+- No Tableau CSV is exported yet; final export is pending KPI completion.
+
+### Verification
+- `03_eda.ipynb`: 29 cells, 15 executed code cells.
+- `04_statistical_analysis.ipynb`: 26 cells, 13 executed code cells.
+- `05_final_load_prep.ipynb`: 12 cells, 6 executed code cells.
+- Evaluator-facing notebooks do not contain external methodology links.
+- `logs/` contains only this `log.md` file.
+
+---
+
 ## 2026-04-22: Notebook-ETL Alignment (Commit ef2bbb7)
 
 ### Summary

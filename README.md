@@ -63,7 +63,16 @@ Smallholder farming households across 35 countries face chronic food insecurity 
 
 **Key Columns Used**
 
-TBA — to be populated after column selection in `01_extraction`.
+The ETL working set currently exports 77 cleaned columns from the 1,599-column raw survey.
+
+- Identity & geography: `id_unique`, `country`, `iso_country_code`, `year`, `region`, `gps_lat_rounded`, `gps_lon_rounded`
+- Demographics: `respondentsex`, `respondent_is_head`, `education_level`, `age_malehead`, `age_femalehead`, `count_people`, 8 household composition columns
+- Derived structural columns: `household_size_derived`, `land_cultivated_ha`
+- Farm & land: `landcultivated`, `unitland`, `land_tenure`, `land_ownership`, `land_irrigated`, `farm_labour`
+- Crops & production: `crop_count`, `crop_name_1` to `crop_name_5`, `crop_harvest_kg_per_year_1` to `_3`, `crop_income_per_year_1` to `_3`, `crop_land_area_1` to `_3`, `crop_consumed_prop_1` to `_3`
+- Income diversification: `local_currency`, `offfarm_incomes_any`, `offfarm_income_proportion`, `livestock_sale_income_1`, `livestock_sale_income_2`
+- Food security: `foodshortagetime`, `fies_1` to `fies_8`, `hfias_1` to `hfias_9`
+- Gender & resource control: `crop_who_control_revenue_1` to `_3`, `offfarm_who_control_revenue_1` to `_2`, `livestock_meat_who_control_eating_1`, `dairy_products_who_control_eating`
 
 For full column definitions, see [`docs/data_dictionary.md`](docs/data_dictionary.md).
 
@@ -71,7 +80,18 @@ For full column definitions, see [`docs/data_dictionary.md`](docs/data_dictionar
 
 ## KPI Framework
 
-TBA
+KPI computation is intentionally deferred until notebooks `03_eda.ipynb`, `04_statistical_analysis.ipynb`, and `05_final_load_prep.ipynb`.
+
+Current analysis direction:
+
+- Primary vulnerability KPI: food shortage prevalence from `foodshortagetime`
+- Secondary food security KPI: FIES-based subpopulation analysis where all 8 FIES responses are available
+- Supporting food security KPI: HFIAS-based subpopulation analysis where all 9 HFIAS responses are available
+- Structural drivers: `land_cultivated_ha`, `crop_count` / crop diversity, `household_size_derived`, `education_level`, `land_irrigated`, `land_tenure`, `offfarm_incomes_any`
+
+Important limitation:
+
+- Income columns remain in local currency, so raw cross-country income comparisons are not yet valid without normalization or currency conversion
 
 ---
 
@@ -83,13 +103,21 @@ TBA — see [`tableau/dashboard_links.md`](tableau/dashboard_links.md) once publ
 
 ## Key Insights
 
-TBA — to be completed after analysis.
+Pending notebooks `03_eda.ipynb` and `04_statistical_analysis.ipynb`.
+
+Current verified dataset notes:
+
+- Cleaned output contains 54,873 rows and 77 columns
+- `foodshortagetime` has much stronger coverage than HFIAS and is the safest full-dataset vulnerability outcome
+- Full FIES coverage exists for 25,073 households
+- Full HFIAS coverage exists for 6,847 households
+- Land, harvest, and income variables are heavily right-skewed and will require log-scale handling in analysis
 
 ---
 
 ## Recommendations
 
-TBA — to be completed after analysis.
+Pending analysis and Tableau build.
 
 ---
 
