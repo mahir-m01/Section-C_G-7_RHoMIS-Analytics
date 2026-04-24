@@ -1,5 +1,35 @@
 # Project Activity Log
 
+## 2026-04-24: Final Load Preparation and Tableau Export
+
+### Summary
+Completed the final load preparation workflow for the analysis phase and produced the Tableau-ready export based on the verified outputs from notebooks 03 and 04.
+
+### Notebook 05 — Final Load Preparation
+- Rebuilt the approved derived analysis fields required for dashboarding.
+- Added a final KPI framework with clear definitions, formulas, valid populations, and cautions.
+- Added coverage and validation checks before export.
+- Exported the final Tableau-ready dataset for dashboard development.
+
+### Final Dashboard Fields
+- Headline vulnerability outcome: food shortage flag and months of food shortage.
+- Core structural drivers: irrigation access, cultivated land, crop diversity, and land productivity.
+- Normalized welfare measures: PPP-adjusted income per MAE and within-country income rank.
+- Supporting food-security and nutrition measures: FIES, HFIAS, and HDDS indicators.
+- Vulnerability segmentation: interpretable household profiles for dashboard drill-down.
+
+### Notebook Presentation Polish
+- Added clear markdown explanations before every code cell in notebooks 03, 04, and 05.
+- Kept evaluator-facing wording professional and removed dependency on internal workflow notes.
+- Retained executed outputs in all three notebooks for reviewability.
+
+### Verification
+- `03_eda.ipynb`: all code cells executed and presentation-ready.
+- `04_statistical_analysis.ipynb`: all code cells executed and presentation-ready.
+- `05_final_load_prep.ipynb`: executed successfully and exported final Tableau-ready CSV.
+- Final Tableau-ready dataset shape: 54,873 rows × 46 columns.
+- `logs/` continues to contain only this `log.md` file.
+
 ## 2026-04-23: EDA and Statistical Analysis Finalization
 
 ### Summary
