@@ -1,5 +1,66 @@
 # Project Activity Log
 
+## 2026-04-24: Final Load Preparation and Tableau Export
+
+### Summary
+Completed the final load preparation workflow for the analysis phase and produced the Tableau-ready export based on the verified outputs from notebooks 03 and 04.
+
+### Notebook 05 — Final Load Preparation
+- Rebuilt the approved derived analysis fields required for dashboarding.
+- Added a final KPI framework with clear definitions, formulas, valid populations, and cautions.
+- Added coverage and validation checks before export.
+- Exported the final Tableau-ready dataset for dashboard development.
+
+### Final Dashboard Fields
+- Headline vulnerability outcome: food shortage flag and months of food shortage.
+- Core structural drivers: irrigation access, cultivated land, crop diversity, and land productivity.
+- Normalized welfare measures: PPP-adjusted income per MAE and within-country income rank.
+- Supporting food-security and nutrition measures: FIES, HFIAS, and HDDS indicators.
+- Vulnerability segmentation: interpretable household profiles for dashboard drill-down.
+
+### Notebook Presentation Polish
+- Added clear markdown explanations before every code cell in notebooks 03, 04, and 05.
+- Kept evaluator-facing wording professional and removed dependency on internal workflow notes.
+- Retained executed outputs in all three notebooks for reviewability.
+
+### Verification
+- `03_eda.ipynb`: all code cells executed and presentation-ready.
+- `04_statistical_analysis.ipynb`: all code cells executed and presentation-ready.
+- `05_final_load_prep.ipynb`: executed successfully and exported final Tableau-ready CSV.
+- Final Tableau-ready dataset shape: 54,873 rows × 46 columns.
+- `logs/` continues to contain only this `log.md` file.
+
+## 2026-04-23: EDA and Statistical Analysis Finalization
+
+### Summary
+Finalized the analysis phase notebooks and prepared a clean handoff for the KPI and Tableau-load phase.
+
+### Notebook 03 — EDA
+- Built and executed `03_eda.ipynb`.
+- Added pre-analysis checks for valid populations, missingness, currency issues, and indicator coverage.
+- Created defensible analysis fields for food shortage, crop diversity, land productivity, PPP-normalized income position, FIES, and HFIAS.
+- Kept the notebook focused on exploration and candidate dashboard metrics, not final KPI ownership.
+
+### Notebook 04 — Statistical Analysis
+- Built and executed `04_statistical_analysis.ipynb`.
+- Added hypothesis tests, robust numeric comparisons, correlation checks, logistic regression, and vulnerability segmentation.
+- Confirmed key supported drivers: land productivity, land scale, education, income position, and irrigation.
+- Kept results framed as association, not causation.
+
+### Notebook 05 — Final Load Prep Template
+- Replaced full export logic with a lightweight template.
+- Added placeholders for final KPI framework, dashboard-field rebuild, final field selection, and export.
+- No Tableau CSV is exported yet; final export is pending KPI completion.
+
+### Verification
+- `03_eda.ipynb`: 29 cells, 15 executed code cells.
+- `04_statistical_analysis.ipynb`: 26 cells, 13 executed code cells.
+- `05_final_load_prep.ipynb`: 12 cells, 6 executed code cells.
+- Evaluator-facing notebooks do not contain external methodology links.
+- `logs/` contains only this `log.md` file.
+
+---
+
 ## 2026-04-22: Notebook-ETL Alignment (Commit ef2bbb7)
 
 ### Summary
