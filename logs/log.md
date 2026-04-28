@@ -1,5 +1,50 @@
 # Project Activity Log
 
+## 2026-04-28: Tableau Dashboard Published — Report & Repository Finalized
+
+### Summary
+Completed all remaining submission deliverables. The Tableau dashboard is fully published on Tableau Public across four interactive views. The final academic report has been compiled to PDF. The repository has been cleaned, synced with all remote branches, and the README updated to reflect the final project state.
+
+### Tableau Dashboard — Completed
+- All four dashboard views designed, refined, and published on Tableau Public by Rajdeep Sanyal.
+- **Risk Overview:** Choropleth world map, food shortage rate by country, median months of shortage by country.
+- **Vulnerability Profiles:** Food shortage rate by k-means profile × country, profile distribution pie, demographic heatmap (irrigation rate, education, off-farm income by profile).
+- **Structural Drivers:** Productivity quartile × irrigation type matrix, crop diversity × shortage rate chart, land productivity vs. food shortage scatter (country-level).
+- **Income Position:** Income rank vs. food shortage scatter, off-farm income by vulnerability profile, income quintile distribution by country.
+- Published URL: https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION
+- Tableau workbook committed to repository: `tableau/RHoMIS DASHBOARD - DVA CAPSTONE.twbx`
+- All four dashboard screenshots committed to `tableau/screenshots/`.
+
+### Key Dashboard Metrics (verified against published views)
+- Food Shortage Rate: 67.7% (32,097 of 47,399 valid households)
+- Median Shortage Duration: 3.0 months
+- Irrigation Advantage: 17.4pp (rainfed 72.4% vs. irrigated 55.1%)
+- Median Land Productivity: 600 kg/ha
+- Median Income per MAE: $112 PPP
+- Shortage Rate — Lowest Income Quintile: 75.8%
+
+### Final Report — Compiled
+- LaTeX source finalized: `reports/project_report.tex`
+- Report compiled to PDF: `reports/RHoMIS-report.pdf`
+- All KPI values, irrigation figures, and team roles verified against dashboard outputs.
+- Contribution matrix and declaration section included per rubric requirements.
+
+### Repository Cleanup & Sync
+- Removed duplicate image assets from `reports/` (canonical copies retained in `.ai-workflow/images/`).
+- Local `dev` branch rebased on `origin/dev` — all remote changes merged cleanly.
+- `main` branch fast-forwarded 32 commits to match `origin/main`.
+- `tableau/` folder reset to match repository state exactly.
+- README rewritten to reflect final project state, team roles, live Tableau URLs, and completed submission checklist.
+
+### Verification
+- `git status`: clean working tree on `dev` (only untracked `reports/RHoMIS-report.pdf`).
+- All 5 notebooks committed with executed outputs visible.
+- `data/processed/`: `rhomis_cleaned.csv`, `rhomis_cleaned.csv.gz`, `rhomis_cleaning_summary.json`, `rhomis_tableau_ready.csv` — all present.
+- `tableau/dashboard_links.md`: updated with all four Tableau Public view URLs.
+- Submission checklist: all items complete.
+
+---
+
 ## 2026-04-24: Final Load Preparation and Tableau Export
 
 ### Summary

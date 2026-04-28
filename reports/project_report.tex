@@ -1,6 +1,6 @@
 % RHoMIS Analytics — DVA Capstone 2 Final Project Report
 % Section C, Group 7
-% Compile: pdflatex project_report.tex  (run twice for TOC)
+% Compile: pdflatex project_report.tex  (run twice for references)
 
 \documentclass[11pt,a4paper]{article}
 
@@ -8,19 +8,19 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{mathpazo}
-\linespread{1.08}
+\linespread{1.06}
 \usepackage{microtype}
+\usepackage{amssymb}
 
 % ─── Layout ──────────────────────────────────────────────────────
-\usepackage[top=2.4cm, bottom=2.6cm, left=3cm, right=3cm]{geometry}
+\usepackage[top=2.4cm, bottom=2.6cm, left=2.8cm, right=2.8cm]{geometry}
 \usepackage{parskip}
-\setlength{\parskip}{4pt plus 1pt}
+\setlength{\parskip}{4pt}
 
 % ─── Colours ─────────────────────────────────────────────────────
 \usepackage[dvipsnames,table]{xcolor}
 \definecolor{rhoRed}{HTML}{701719}
 \definecolor{rhoPale}{HTML}{FDF4F4}
-\definecolor{rhoBorder}{HTML}{C9504F}
 \definecolor{rhoCharcoal}{HTML}{1E2124}
 \definecolor{rhoGray}{HTML}{5B5B5B}
 \definecolor{rhoRow}{HTML}{F6F6F6}
@@ -30,53 +30,56 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
-\usepackage{multirow}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
-\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \setlength{\tabcolsep}{7pt}
-\renewcommand{\arraystretch}{1.45}
-% Header cell helpers
+\renewcommand{\arraystretch}{1.4}
 \newcommand{\tH}[1]{\cellcolor{rhoRed}\textcolor{white}{\textbf{#1}}}
 
 % ─── tcolorbox ───────────────────────────────────────────────────
 \usepackage{tcolorbox}
-\tcbuselibrary{skins, breakable, raster}
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{kpibox}{%
+  enhanced, arc=4pt, boxrule=1pt,
+  colframe=rhoRed, colback=rhoPale,
+  top=10pt, bottom=10pt, left=8pt, right=8pt,
+  fontupper=\centering}
 
 \newtcolorbox{findingbox}{%
   enhanced, arc=3pt, boxrule=0pt,
   borderline west={3pt}{0pt}{rhoRed},
   colback=rhoPale, colframe=rhoRed,
-  left=10pt, right=8pt, top=6pt, bottom=6pt
-}
+  left=10pt, right=8pt, top=6pt, bottom=6pt}
 
 \newtcolorbox{refbox}{%
   enhanced, arc=2pt, boxrule=0.5pt,
   colframe=rhoRule, colback=rhoRow,
   left=6pt, right=6pt, top=3pt, bottom=3pt,
-  fontupper=\small\color{rhoGray}\itshape
-}
+  fontupper=\small\color{rhoGray}\itshape}
 
 % ─── Graphics ────────────────────────────────────────────────────
 \usepackage{graphicx}
+% Image source: .ai-workflow/images/ (gitignored local assets)
+\graphicspath{{../.ai-workflow/images/}{./}}
 
 % ─── Section formatting ──────────────────────────────────────────
 \usepackage{titlesec}
 \titleformat{\section}
-  {\large\bfseries\color{rhoCharcoal}}
-  {\textcolor{rhoRed}{\thesection.}}{0.5em}{}
-  [\vspace{1pt}{\color{rhoRed}\hrule height 1pt}\vspace{3pt}]
-\titleformat{\subsection}
   {\normalsize\bfseries\color{rhoCharcoal}}
+  {\textcolor{rhoRed}{\thesection.}}{0.45em}{}
+  [\vspace{1pt}{\color{rhoRed}\hrule height 0.8pt}\vspace{3pt}]
+\titleformat{\subsection}
+  {\small\bfseries\color{rhoCharcoal}}
   {\color{rhoGray}\thesubsection.}{0.4em}{}
-\titlespacing{\section}{0pt}{14pt plus 3pt}{5pt}
-\titlespacing{\subsection}{0pt}{9pt}{3pt}
+\titlespacing{\section}{0pt}{12pt plus 3pt}{4pt}
+\titlespacing{\subsection}{0pt}{8pt}{2pt}
 
 % ─── Lists ───────────────────────────────────────────────────────
 \usepackage{enumitem}
-\setlist[itemize]{leftmargin=1.5em, topsep=2pt, itemsep=2pt,
+\setlist[itemize]{leftmargin=1.4em, topsep=2pt, itemsep=1pt,
   label={\small\color{rhoRed}$\bullet$}}
-\setlist[enumerate]{leftmargin=1.8em, topsep=2pt, itemsep=3pt}
+\setlist[enumerate]{leftmargin=1.7em, topsep=2pt, itemsep=2pt}
 
 % ─── Headers / footers ───────────────────────────────────────────
 \usepackage{fancyhdr}
@@ -90,16 +93,19 @@
 
 % ─── Captions ────────────────────────────────────────────────────
 \usepackage{caption}
-\captionsetup{font=small, labelfont={bf,color=rhoRed},
-              labelsep=period, skip=4pt}
+\captionsetup{font=small, labelfont={bf,color=rhoRed}, labelsep=period, skip=4pt}
 
-% ─── Utilities ───────────────────────────────────────────────────
-\usepackage{setspace}
-\usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={RHoMIS Analytics — Final Project Report}}
-\newcommand{\nb}[1]{\vspace{2pt}\begin{refbox}Reference: #1\end{refbox}\vspace{4pt}}
-\newcommand{\placeholder}[1]{%
-  \colorbox{yellow!25}{\small\ttfamily\color{rhoCharcoal}[#1]}}
+% ─── Hyperlinks — clickable, coloured ────────────────────────────
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=rhoRed,
+  linkcolor=rhoCharcoal,
+  pdftitle={RHoMIS Analytics — Final Project Report}
+}
+
+\newcommand{\nb}[1]{\vspace{2pt}\begin{refbox}Reference: #1\end{refbox}\vspace{3pt}}
+\newcommand{\placeholder}[1]{\colorbox{yellow!25}{\small\ttfamily\color{rhoCharcoal}[#1]}}
 
 % ═══════════════════════════════════════════════════════════════════
 \begin{document}
@@ -113,106 +119,72 @@
 \vspace{0.5cm}
 
 \noindent
-\begin{minipage}[c]{0.48\linewidth}
-  \includegraphics[height=1.6cm]{rhomis-logo.jpg}
-\end{minipage}
-\hfill
-\begin{minipage}[c]{0.48\linewidth}
+\begin{minipage}[c]{0.5\linewidth}
+  \includegraphics[height=1.5cm]{rhomis-logo.jpg}
+\end{minipage}%
+\begin{minipage}[c]{0.5\linewidth}
   \raggedleft
-  {\normalsize\color{rhoGray} Data Visualization \& Analytics}\\[2pt]
-  {\normalsize\color{rhoGray} DVA Capstone 2 \quad|\quad April 2026}
+  {\small\color{rhoGray}Data Visualization \& Analytics}\\[2pt]
+  {\small\color{rhoGray}DVA Capstone 2\quad|\quad 28 April 2026}
 \end{minipage}
 
-\vspace{0.45cm}
+\vspace{0.5cm}
 {\color{rhoRule}\rule{\linewidth}{0.6pt}}
-\vspace{0.55cm}
+\vspace{0.7cm}
 
-% Title block
-\noindent
 \begin{tcolorbox}[enhanced, arc=0pt, boxrule=0pt,
   colback=rhoRed, colframe=rhoRed,
-  left=18pt, right=18pt, top=18pt, bottom=18pt]
+  left=16pt, right=16pt, top=16pt, bottom=16pt]
 \centering
-{\fontsize{25}{31}\selectfont\bfseries\color{white}
-Food Security Drivers in\\[5pt]
-Smallholder Farming Households}\\[10pt]
-{\large\color{white!80!rhoRed}\itshape
-A Multi-Country Analysis Using the RHoMIS Dataset}\\[7pt]
-{\small\color{white!65!rhoRed}
-54,873 households \quad\textperiodcentered\quad 35 countries
-\quad\textperiodcentered\quad 2015--2023}
+{\fontsize{24}{30}\selectfont\bfseries\color{white}
+Food Security Drivers in Smallholder\\[4pt]Farming Households}\\[8pt]
+{\normalsize\color{white!80!rhoRed}\itshape
+A Multi-Country Analysis Using the RHoMIS Dataset}\\[5pt]
+{\small\color{white!60!rhoRed}
+54,873 households \textperiodcentered\ 35 countries \textperiodcentered\ 2015--2023}
 \end{tcolorbox}
 
+\vspace{0.8cm}
+{\color{rhoRule}\rule{\linewidth}{0.6pt}}
 \vspace{0.6cm}
 
-% KPI preview — equal-height 2×2 raster
-\begin{tcbraster}[raster columns=4, raster equal height,
-  raster column skip=5pt, raster row skip=0pt]
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+  {\small\bfseries\color{rhoCharcoal}Project Details}\\[6pt]
+  \begin{tabular}{@{}ll@{}}
+    \small Sector     & \small Agriculture / Rural Development \\[3pt]
+    \small Team ID    & \small Section C, Group 7 \\[3pt]
+    \small Institute  & \small Newton School of Technology \\[3pt]
+    \small Mentor     & \small Archit Raj \\[3pt]
+    \small Submitted  & \small 28 April 2026 \\
+  \end{tabular}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\linewidth}
+  {\small\bfseries\color{rhoCharcoal}Team Members}\\[6pt]
+  \begin{tabular}{@{}ll@{}}
+    \small Mahir Abdullah     & \small Team, Analysis \& Report Lead \\[2pt]
+    \small Manas Vivek Saxena & \small ETL \& PPT Lead \\[2pt]
+    \small Manya Verma        & \small Data \& ETL \\[2pt]
+    \small Rajat Srivastav    & \small Data \& ETL \\[2pt]
+    \small Rajdeep Sanyal     & \small Visualisation Lead \\[2pt]
+    \small Sankalp            & \small Strategy \& Statistical Analysis \\
+  \end{tabular}
+\end{minipage}
 
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  top=9pt, bottom=9pt, left=5pt, right=5pt,
-  fontupper=\centering\small]
-{\large\bfseries\color{rhoRed}67.7\%}\\[3pt]
-{\bfseries\color{rhoCharcoal}\small Food Shortage Rate}\\[1pt]
-{\footnotesize\color{rhoGray}32,097 of 47,399 HH}
-\end{tcolorbox}
-
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  top=9pt, bottom=9pt, left=5pt, right=5pt,
-  fontupper=\centering\small]
-{\large\bfseries\color{rhoRed}16.2pp}\\[3pt]
-{\bfseries\color{rhoCharcoal}\small Irrigation Gap}\\[1pt]
-{\footnotesize\color{rhoGray}rainfed vs.\ irrigated}
-\end{tcolorbox}
-
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  top=9pt, bottom=9pt, left=5pt, right=5pt,
-  fontupper=\centering\small]
-{\large\bfseries\color{rhoRed}29.1pp}\\[3pt]
-{\bfseries\color{rhoCharcoal}\small Productivity Gap}\\[1pt]
-{\footnotesize\color{rhoGray}Q1 vs.\ Q4 quartile}
-\end{tcolorbox}
-
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  top=9pt, bottom=9pt, left=5pt, right=5pt,
-  fontupper=\centering\small]
-{\large\bfseries\color{rhoRed}0.812}\\[3pt]
-{\bfseries\color{rhoCharcoal}\small ROC-AUC}\\[1pt]
-{\footnotesize\color{rhoGray}logistic regression}
-\end{tcolorbox}
-\end{tcbraster}
-
-\vspace{0.55cm}
+\vspace{0.65cm}
 {\color{rhoRule}\rule{\linewidth}{0.6pt}}
-\vspace{0.45cm}
+\vspace{0.5cm}
 
 \noindent
-\begin{minipage}[t]{0.52\linewidth}
-{\small\bfseries\color{rhoCharcoal}Team}\\[5pt]
-\begin{tabular}{@{}ll@{}}
-  Mahir Abdullah      & \small Analysis Lead \\
-  Manas Vivek Saxena  & \small Tableau Dashboard \\
-  Manya Verma         & \small Data Cleaning \& ETL \\
-  Rajat Srivastav     & \small EDA \& Visualisation \\
-  Rajdeep Sanyal      & \small Statistical Analysis \\
-  Sankalp             & \small Report \& Presentation \\
-\end{tabular}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.44\linewidth}
-\raggedleft
-{\small\bfseries\color{rhoCharcoal}Team ID}\quad Section C, Group 7\\[3pt]
-{\small\bfseries\color{rhoCharcoal}Mentor}\quad Archit Raj\\[5pt]
-{\small\bfseries\color{rhoCharcoal}GitHub}\\[2pt]
-{\footnotesize\href{https://github.com/mahir-m01/Section-C\_G-7\_RHoMIS-Analytics}%
-{github.com/mahir-m01/\\Section-C\_G-7\_RHoMIS-Analytics}}\\[5pt]
-{\small\bfseries\color{rhoCharcoal}Tableau Public}\\[2pt]
-{\footnotesize\placeholder{INSERT URL}}
-\end{minipage}
+{\small\bfseries\color{rhoCharcoal}GitHub Repository}\\[3pt]
+\href{https://github.com/mahir-m01/Section-C\_G-7\_RHoMIS-Analytics}%
+{\small\color{rhoRed}https://github.com/mahir-m01/Section-C\_G-7\_RHoMIS-Analytics}
+
+\vspace{0.4cm}
+{\small\bfseries\color{rhoCharcoal}Tableau Public Dashboard}\\[3pt]
+\href{https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION}%
+{\small\color{rhoRed}https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD}
 
 \vfill
 {\color{rhoRed}\rule{\linewidth}{4pt}}
@@ -220,90 +192,80 @@ A Multi-Country Analysis Using the RHoMIS Dataset}\\[7pt]
 
 \pagenumbering{arabic}
 \setcounter{page}{2}
-\tableofcontents
-\newpage
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Executive Summary}
 
-\begin{tcbraster}[raster columns=2, raster equal height,
-  raster column skip=8pt, raster row skip=8pt]
+% KPI cards — 2×2 grid using side-by-side minipages
+\noindent%
+\begin{minipage}[t]{0.475\linewidth}
+\begin{kpibox}
+{\footnotesize\bfseries\color{rhoGray}FOOD SHORTAGE RATE}\\[5pt]
+{\fontsize{26}{30}\selectfont\bfseries\color{rhoRed}67.7\%}\\[4pt]
+{\small\color{rhoCharcoal}32,097 of 47,399 households\\
+Median duration: 3 months}
+\end{kpibox}
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.475\linewidth}
+\begin{kpibox}
+{\footnotesize\bfseries\color{rhoGray}IRRIGATION ACCESS GAP}\\[5pt]
+{\fontsize{26}{30}\selectfont\bfseries\color{rhoRed}17.4pp}\\[4pt]
+{\small\color{rhoCharcoal}Rainfed 72.4\% vs.\ irrigated 55.1\%\\
+Only 20.2\% of farms irrigated}
+\end{kpibox}
+\end{minipage}
 
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  title={\small\bfseries Food Shortage Rate},
-  coltitle=white, colbacktitle=rhoRed, attach boxed title to top left,
-  boxed title style={arc=3pt, boxrule=0pt, left=5pt, right=5pt},
-  top=10pt, bottom=8pt, left=8pt, right=8pt]
-\centering
-{\fontsize{30}{34}\selectfont\bfseries\color{rhoRed}67.7\%}\\[4pt]
-{\small 32,097 of 47,399 households with valid responses\\
-Global median shortage duration: 3 months}
-\end{tcolorbox}
+\vspace{5pt}
 
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  title={\small\bfseries Irrigation Access Gap},
-  coltitle=white, colbacktitle=rhoRed, attach boxed title to top left,
-  boxed title style={arc=3pt, boxrule=0pt, left=5pt, right=5pt},
-  top=10pt, bottom=8pt, left=8pt, right=8pt]
-\centering
-{\fontsize{30}{34}\selectfont\bfseries\color{rhoRed}16.2pp}\\[4pt]
-{\small Rainfed households face 71.5\% shortage\\
-vs.\ 55.3\% for irrigated — yet only 20.2\%\\
-of households have any irrigation access}
-\end{tcolorbox}
+\noindent%
+\begin{minipage}[t]{0.475\linewidth}
+\begin{kpibox}
+{\footnotesize\bfseries\color{rhoGray}LAND PRODUCTIVITY GAP}\\[5pt]
+{\fontsize{26}{30}\selectfont\bfseries\color{rhoRed}29.1pp}\\[4pt]
+{\small\color{rhoCharcoal}Lowest quartile: 83\% shortage\\
+Highest quartile: 54\% shortage}
+\end{kpibox}
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.475\linewidth}
+\begin{kpibox}
+{\footnotesize\bfseries\color{rhoGray}INCOME QUINTILE GAP}\\[5pt]
+{\fontsize{26}{30}\selectfont\bfseries\color{rhoRed}19.8pp}\\[4pt]
+{\small\color{rhoCharcoal}Bottom quintile vs.\ top quintile\\
+food shortage rate difference}
+\end{kpibox}
+\end{minipage}
 
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  title={\small\bfseries Land Productivity Gap},
-  coltitle=white, colbacktitle=rhoRed, attach boxed title to top left,
-  boxed title style={arc=3pt, boxrule=0pt, left=5pt, right=5pt},
-  top=10pt, bottom=8pt, left=8pt, right=8pt]
-\centering
-{\fontsize{30}{34}\selectfont\bfseries\color{rhoRed}29.1pp}\\[4pt]
-{\small Q1 (lowest) productivity: 83\% shortage\\
-Q4 (highest) productivity: 54\% shortage\\
-Confirmed in country-controlled regression}
-\end{tcolorbox}
+\vspace{8pt}
 
-\begin{tcolorbox}[enhanced, arc=4pt, boxrule=1pt,
-  colframe=rhoRed, colback=rhoPale,
-  title={\small\bfseries Model Accuracy},
-  coltitle=white, colbacktitle=rhoRed, attach boxed title to top left,
-  boxed title style={arc=3pt, boxrule=0pt, left=5pt, right=5pt},
-  top=10pt, bottom=8pt, left=8pt, right=8pt]
-\centering
-{\fontsize{30}{34}\selectfont\bfseries\color{rhoRed}0.812}\\[4pt]
-{\small ROC-AUC, logistic regression\\
-McFadden pseudo-$R^2 = 0.240$\\
-Country and year fixed effects}
-\end{tcolorbox}
+\textbf{Problem.} Smallholder farming households across 35 countries face chronic food insecurity. Development organisations lack clear evidence on which farm profiles and regions carry the highest risk, making it difficult to direct limited budgets toward the households that need them most.
 
-\end{tcbraster}
+\textbf{Approach.} The Rural Household Multi-Indicator Survey (RHoMIS) — 54,873 households, 2015--2023 — was cleaned using a Python ETL pipeline, then analysed through exploratory analysis, hypothesis testing, regression, and clustering. Findings are presented through a four-dashboard Tableau system.
 
-\vspace{6pt}
+\textbf{Key Findings.}
+\begin{itemize}
+  \item Two in three surveyed households reported food shortage — confirming this is the structural norm, not an exception.
+  \item Irrigation access creates a 17.4pp gap in food shortage rates; only 20.2\% of households have it.
+  \item Land productivity quartile gap (29.1pp) and income quintile gap (19.8pp) identify the structural roots of vulnerability.
+  \item Low education and large household size compound every other risk factor.
+\end{itemize}
 
-\textbf{The problem.} Smallholder farming households across 35 countries face chronic food insecurity, yet the structural factors driving it — and the regions where they concentrate — remain poorly mapped at a scale useful for intervention targeting. Without clear evidence on which farm profiles carry the highest risk, development organisations and agricultural ministries cannot direct limited budgets toward the households that need them most.
-
-\textbf{The approach.} This project analysed the Rural Household Multi-Indicator Survey (RHoMIS), a standardised dataset covering 54,873 households from 2015 to 2023. Raw survey data with 1,599 columns was cleaned and transformed through a Python ETL pipeline, then subjected to exploratory analysis, hypothesis testing, logistic regression, and k-means clustering. Findings are presented through a four-dashboard Tableau system published on Tableau Public.
-
-\textbf{What was found.} Two in three surveyed households reported food shortage in the past year — confirming that food insecurity is the structural norm, not the exception. The largest single driver is income position within each country (odds ratio: 0.456 in a controlled model), followed by cultivated land area (0.671), land productivity (0.828), and low education (1.268 — a risk factor). Irrigation access, reaching only 20.2\% of households, creates a 16.2 percentage-point food shortage gap between irrigated and rainfed farms.
-
-\textbf{What should be done.} Three interventions stand out: expanding irrigation in the highest-risk rainfed cluster; directing productivity support to the bottom two land productivity quartiles; and combining income diversification with basic education access for the poorest income quintile. Together these interventions address the structural roots of food insecurity rather than its symptoms.
+\textbf{Key Recommendations.}
+\begin{itemize}
+  \item Expand irrigation in the low-income rainfed cluster (14,330 households, 78.7\% shortage, 0.3\% irrigation).
+  \item Direct productivity support to Q1 and Q2 land productivity households — the largest structural gap.
+  \item Combine income diversification with basic education access for the bottom income quintile.
+\end{itemize}
 
 \newpage
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Sector \& Business Context}
 
-Smallholder agriculture supports an estimated 500 million farm families globally and produces the majority of food consumed in developing economies. Despite this central role, smallholder households remain the most food-insecure segment of the global population — caught in a cycle where low farm productivity limits income, low income limits investment, and limited investment perpetuates low productivity.
+Smallholder agriculture supports roughly 500 million farm families globally and produces the majority of food consumed in developing economies. Despite this role, smallholder households remain the most food-insecure population segment — caught in a cycle where low farm productivity limits income, which in turn limits investment, perpetuating vulnerability.
 
-Development organisations, international donors, and national agricultural ministries invest substantial capital in breaking this cycle. The challenge is not funding but precision: without reliable evidence on which farm profiles and which regions carry the highest risk, programmes are spread thin and their impact diluted. A field officer in Rwanda and a programme director at IFAD face the same question — where do we act first, and what do we fix? This project exists to answer that question with data.
+The decision-makers this analysis serves are national agricultural policy teams who allocate extension service budgets, and international development programme officers at organisations such as CGIAR and IFAD who design multi-country interventions. Both face the same question: \textit{where do we act first, and what do we fix?}
 
-The decision-makers this analysis serves are two: national agricultural policy teams who must allocate extension service budgets within a country, and international programme officers designing multi-country portfolio interventions. Both need a fast, visual, evidence-backed picture of vulnerability distribution — and both are served by the same four-dashboard Tableau system at the centre of this project.
-
-The business value is straightforward. Misallocated agricultural interventions — irrigation infrastructure in low-vulnerability regions, soil support for already-productive farms — waste development capital and delay meaningful impact. A country-level vulnerability map backed by household-level statistical analysis reduces programme design time, focuses resources on high-risk populations, and strengthens the evidence base for decisions that affect millions of rural households.
+The business value is precision targeting. Without evidence on which profiles carry the highest risk, interventions are spread thin. A country-level vulnerability map backed by household-level analysis concentrates resources on high-risk populations — reducing waste and improving measurable impact.
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Problem Statement \& Objectives}
@@ -312,55 +274,46 @@ The business value is straightforward. Misallocated agricultural interventions �
 Which regions and farm profiles across 35 countries are most vulnerable to food insecurity and low farm income — and which combination of factors (farm size, land productivity, crop diversity, irrigation access, household demographics, and income position) drives those outcomes?
 \end{findingbox}
 
-This project treats food insecurity as a measurable, structurally-driven outcome rather than a diffuse humanitarian condition. The analysis is in scope for: food insecurity measured via the self-reported shortage flag, structural driver analysis across land, irrigation, crops, income, and education dimensions, household-level vulnerability segmentation using clustering, and country-level risk mapping. It is out of scope for: causal inference or randomised evaluation, year-over-year trend analysis (data is cross-sectional per survey wave), sub-regional administrative disaggregation (region names are not standardised across countries), and any analysis relying on the HFIAS frequency score (87.5\% missing).
+\textbf{In scope:} food insecurity via self-reported shortage flag; structural driver analysis; household vulnerability segmentation; country-level risk mapping; gender and resource control dimensions.
 
-Success means three things: all key findings are supported by formal statistical tests, the Tableau dashboard enables a non-technical user to navigate country and profile comparisons without assistance, and each recommendation maps to a structural factor that an intervention programme can realistically address.
+\textbf{Out of scope:} causal inference; year-over-year trend analysis (cross-sectional data); sub-regional disaggregation (region names unstandardised); HFIAS frequency score (87.5\% missing).
 
-\newpage
+\textbf{Success criteria:} all key findings supported by formal statistical tests; Tableau dashboard navigable by a non-technical user without assistance; recommendations map to actionable structural factors.
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Data Description}
 
-\subsection{Dataset Source}
+\textbf{Source.} Rural Household Multi-Indicator Survey (RHoMIS). Published on Harvard Dataverse by Gorman, Hammond, Frelat et al.\ — \href{https://doi.org/10.7910/DVN/WS38SA}{doi.org/10.7910/DVN/WS38SA}, Version 1, January 30, 2025. CC0 1.0 Public Domain.
 
-The Rural Household Multi-Indicator Survey (RHoMIS) is published on Harvard Dataverse by Gorman, Hammond, Frelat, Caulfield, and 72 co-contributors. It is available under CC0 1.0 (Public Domain) at \href{https://doi.org/10.7910/DVN/WS38SA}{doi.org/10.7910/DVN/WS38SA} (Version 1, January 30, 2025). The survey covers 54,873 farm households across 35 countries in Africa, Asia, and Latin America, collected between 2015 and 2023 across multiple independent survey waves.
-
-\subsection{Data Structure}
-
-\begin{tabularx}{\linewidth}{@{}p{5.2cm} r r L@{}}
+\begin{tabularx}{\linewidth}{@{}p{5.0cm} r r L@{}}
   \tH{File} & \tH{Rows} & \tH{Cols} & \tH{Description} \\
   \rowcolor{rhoRow}
-  \texttt{raw.csv.gz}             & 54,873 & 1,599 & Original survey data — never edited \\
-  \texttt{rhomis\_cleaned.csv}    & 54,873 &    77 & ETL pipeline output \\
+  \texttt{raw.csv.gz}                    & 54,873 & 1,599 & Original survey data — never edited \\
+  \texttt{rhomis\_cleaned.csv}           & 54,873 &    77 & ETL pipeline output \\
   \rowcolor{rhoRow}
-  \texttt{rhomis\_tableau\_ready.csv} & 54,873 & 46 & Final analysis-ready export \\
+  \texttt{rhomis\_tableau\_ready.csv}    & 54,873 &    46 & Final analysis-ready export \\
   \bottomrule
 \end{tabularx}
 
-\subsection{Key Fields}
+\vspace{4pt}
 
-\begin{tabularx}{\linewidth}{@{}p{4.4cm} p{1.4cm} p{0.9cm} L@{}}
+\begin{tabularx}{\linewidth}{@{}p{4.2cm} p{1.3cm} p{0.9cm} L@{}}
   \tH{Column} & \tH{Type} & \tH{Miss.} & \tH{Description} \\
   \rowcolor{rhoRow}
-  \texttt{food\_shortage\_flag}   & Binary  & 13.6\% & Primary outcome. Global rate: 67.7\% \\
-  \texttt{irrigated\_flag}        & Binary  &  8.6\% & Irrigation access. Coverage: 20.2\% \\
+  \texttt{food\_shortage\_flag}      & Binary  & 13.6\% & Primary outcome. Global rate: 67.7\% \\
+  \texttt{irrigated\_flag}           & Binary  &  8.6\% & Irrigation access. Coverage: 20.2\% \\
   \rowcolor{rhoRow}
-  \texttt{land\_productivity\_kg\_per\_ha} & Float & 12.9\% & Harvest per hectare. Extreme right skew — median only \\
-  \texttt{country\_income\_rank\_pct} & Float &  7.1\% & Within-country income percentile 0--1. Near-uniform distribution \\
+  \texttt{land\_productivity\_kg\_per\_ha} & Float & 12.9\% & Harvest/ha. Extreme right skew — median only \\
+  \texttt{country\_income\_rank\_pct}& Float   &  7.1\% & Within-country income percentile 0--1 \\
   \rowcolor{rhoRow}
-  \texttt{crop\_diversity\_count} & Integer &  0.0\% & Distinct crop types grown, 0--10. Median: 2 \\
-  \texttt{vulnerability\_profile\_k4} & String & 23.8\% & k-means cluster label, 4 profiles \\
+  \texttt{crop\_diversity\_count}    & Integer &  0.0\% & Distinct crop types, 0--10. Median: 2 \\
+  \texttt{vulnerability\_profile\_k4}& String  & 23.8\% & k-means cluster label, 4 profiles \\
   \rowcolor{rhoRow}
-  \texttt{hfias\_status\_indicator} & String &  0.0\% & Food insecurity classification. Full coverage across all 35 countries \\
-  \texttt{fies\_yes\_count}       & Float   & 54.3\% & FIES affirmative responses, 0--8. Available for 22 of 35 countries only \\
+  \texttt{fies\_yes\_count}          & Float   & 54.3\% & FIES score 0--8. 22 of 35 countries only \\
   \bottomrule
 \end{tabularx}
 
-\subsection{Data Limitations}
-
-Several constraints shape what this analysis can and cannot claim. Income, land productivity, and crop harvest fields carry extreme right skew — in some cases skewness above 200 — meaning raw values cannot be plotted on continuous axes. All analysis uses median aggregation, log transformation, or within-country percentile ranking to address this. Year distribution is heavily uneven: 2018 alone accounts for 22\% of the sample while 2015 contributes only 2\%. This makes year-over-year trend analysis unreliable, so the year variable is used only as a control in regression, not for trend charting.
-
-The HFIAS survey instrument was not consistently deployed across all waves. Many countries show 100\% food-secure classification under HFIAS — an artefact of incomplete administration, not a genuine outcome. HFIAS is used only as a validation cross-reference in this project, never as a primary metric. FIES coverage is limited to 22 of 35 countries, so any FIES-based finding is noted with its restricted population. Finally, the Philippines and Gambia have zero valid food shortage flag responses and are excluded from all food shortage rate charts.
+\textbf{Limitations.} Income, land productivity, and harvest fields carry extreme right skew (skewness $>$100) — raw values are never plotted on continuous axes; median or log transforms are used throughout. Year distribution is uneven (2018 = 22\% of sample; 2015 = 2\%). HFIAS shows 100\% food-secure in many countries — instrument deployment artefact, not genuine outcome; excluded from primary analysis. Philippines and Gambia: zero valid food shortage responses — excluded from shortage rate charts.
 
 \newpage
 
@@ -369,69 +322,55 @@ The HFIAS survey instrument was not consistently deployed across all waves. Many
 
 \nb{notebooks/02\_cleaning.ipynb committed to GitHub}
 
-\subsection{Pipeline Overview}
+All cleaning and transformation steps were executed in Python via \texttt{scripts/etl\_pipeline.py}. Notebooks 01 and 02 document and verify the same logic.
 
-All cleaning and transformation steps were executed in Python via \texttt{scripts/etl\_pipeline.py}, which serves as the canonical implementation. Notebooks 01 and 02 document and verify the same logic for transparency and auditability.
+The pipeline narrows 1,599 raw columns to 60 working columns across identity, demographics, farm structure, crops, income, and food security. Country names are standardised to lowercase, correcting a known misspelling of ``philippines.'' Age fields in \texttt{age\_malehead} and \texttt{age\_femalehead} recorded birth years in some survey waves — the pipeline detects these using each row's own survey year and converts them to ages, treating values implying age above 110 as missing.
 
-\subsection{What the Pipeline Does}
+Household size was rebuilt from scratch. The original \texttt{count\_people} field is 49.4\% missing, so \texttt{household\_size\_derived} was computed by summing eight age-band columns, yielding zero missing values. Land area was converted from local units (bigha, cuerda, etc.) using a 28-unit mapping table; units not in the table produce missing values — no guessing or capping. Binary survey fields (\texttt{land\_irrigated}, \texttt{foodshortagetime}) were encoded as numeric flags. HFIAS and FIES strings were retained as-is; ``no\_answer'' is a valid response category, not a missing value.
 
-The pipeline begins by narrowing focus: 1,599 raw survey columns are reduced to 60 working columns covering the domains of identity, demographics, farm structure, crop production, income, and food security. This selection is driven by analytical relevance and missingness thresholds, not data convenience.
+\textbf{No imputation was applied.} Missing values remain missing throughout. Missingness in RHoMIS reflects survey design — which questions appeared in which waves, and which households answered them. Filling with means or zeros would misrepresent the data.
 
-Country names are standardised to lowercase throughout, correcting a known misspelling of ``philippines'' that appears in a subset of records. Age fields in \texttt{age\_malehead} and \texttt{age\_femalehead} presented an unusual challenge: some survey waves recorded birth years instead of ages. The pipeline detects these cases using each row's own survey year and converts values that fall in the plausible birth-year range $(1900, \text{survey year})$ to an age. Values implying age above 110 are treated as invalid and set to missing.
+\textbf{Feature engineering} (analysis phase — notebooks 04 and 05):
 
-Household size was a critical repair. The field \texttt{count\_people} carries 49.4\% missing values — an unacceptable gap for a variable used in nearly every downstream analysis. The fix is to sum eight age-band columns that collectively cover the full household, producing \texttt{household\_size\_derived} with zero missing values.
-
-Land area required a unit conversion step. Survey respondents reported land in local units — ranging from hectares and acres to country-specific measures such as ``bigha'' and ``cuerda.'' The pipeline applies a 28-unit mapping table to convert each record to hectares. Units not in the mapping table produce a missing value: no guessing, no capping. This is the correct decision. The resulting maximum of 30,000 hectares in Nigeria is a verified legitimate large-farm record, not an outlier.
-
-Binary survey fields such as \texttt{land\_irrigated} (recorded as ``y''/``n'') and \texttt{foodshortagetime} are standardised and encoded as numeric flags, which Tableau and the regression models can consume directly. Food security instrument question strings from HFIAS and FIES are retained exactly as validated strings — the value ``no\_answer'' is a legitimate survey response category, not a missing value, and is preserved as such throughout.
-
-\subsection{What the Pipeline Does Not Do}
-
-No imputation is applied to any field at any stage. Missing values remain as missing throughout. The missingness in RHoMIS is structurally non-random — it reflects which questions were included in which survey waves, and which households answered them. Filling missing values with means, medians, or zeros would silently misrepresent the data and produce false precision in analyses that should acknowledge their coverage constraints. Every analysis in this project reports its valid population size explicitly.
-
-\subsection{Feature Engineering}
-
-Derived analytical fields are created in notebooks 04 and 05 — not during cleaning — to maintain a clean separation between structural preparation and analysis logic.
-
-\begin{tabularx}{\linewidth}{@{}p{5.2cm} L@{}}
-  \tH{Derived Field} & \tH{Construction Logic} \\
+\begin{tabularx}{\linewidth}{@{}p{5.0cm} L@{}}
+  \tH{Derived Field} & \tH{Formula / Logic} \\
   \rowcolor{rhoRow}
-  \texttt{household\_size\_derived}      & Sum of eight age-band columns; 0\% missing \\
-  \texttt{food\_shortage\_flag}          & Numeric encoding of \texttt{foodshortagetime} \\
+  \texttt{low\_education\_flag}            & $= 1$ if \texttt{education\_level} $\in$ \{no formal, primary\}; else $0$ \\
+  \texttt{crop\_diversity\_count}          & $= |\{\texttt{crop\_name\_}i : i=1\ldots5,\; \text{non-null}\}|$ per household \\
   \rowcolor{rhoRow}
-  \texttt{low\_education\_flag}          & 1 if respondent has no formal or primary-only education \\
-  \texttt{crop\_diversity\_count}        & Count of distinct non-null crop name entries per household \\
+  \texttt{land\_productivity\_kg\_per\_ha} & $= \dfrac{\sum_{i=1}^{3}\texttt{crop\_harvest\_kg\_}i}{\texttt{land\_cultivated\_ha}}$ \\
+  \texttt{country\_income\_rank\_pct}      & $= \text{percentile\_rank}(\texttt{total\_income\_ppp})$ within each country \\
   \rowcolor{rhoRow}
-  \texttt{land\_productivity\_kg\_per\_ha} & Total crop harvest divided by cultivated land in hectares \\
-  \texttt{country\_income\_rank\_pct}    & Within-country percentile rank of PPP-normalised annual income \\
-  \rowcolor{rhoRow}
-  \texttt{vulnerability\_profile\_k4}   & k-means cluster assignment at k=4 \\
-  \texttt{productivity\_quartile}        & Q1--Q4 bins computed on non-missing productivity values \\
+  \texttt{vulnerability\_profile\_k4}     & $k$-means ($k=4$) on food security, farm structure, and income indicators \\
+  \texttt{productivity\_quartile}          & Q1--Q4 equal-frequency bins over non-missing \texttt{land\_productivity\_kg\_per\_ha} \\
   \bottomrule
 \end{tabularx}
+
+\newpage
 
 % ═══════════════════════════════════════════════════════════════════
 \section{KPI \& Metric Framework}
 
 \nb{notebooks/05\_final\_load\_prep.ipynb, Section 4}
 
-Seven KPIs form the backbone of the dashboard and the basis of all stakeholder-facing communication. Each was selected because it is interpretable without statistical training, reliable given available data coverage, and directly connected to at least one actionable recommendation.
+Seven KPIs form the backbone of the dashboard. Each is interpretable without statistical training and directly connected to at least one recommendation.
 
-\begin{tabularx}{\linewidth}{@{}p{4.6cm} p{2.0cm} L@{}}
-  \tH{KPI} & \tH{Value} & \tH{Business Purpose} \\
+{\small\setlength{\tabcolsep}{5pt}
+\begin{tabularx}{\linewidth}{@{}p{3.6cm} p{1.6cm} p{4.2cm} L@{}}
+  \tH{KPI} & \tH{Value} & \tH{Formula} & \tH{Business Purpose} \\
   \rowcolor{rhoRow}
-  Food Shortage Rate      & 67.7\%     & Headline vulnerability metric. Baseline for all targeting decisions. \\
-  Food-Shortage HH Count  & 32,097     & Converts the percentage into a countable population for policymakers. \\
+  Food Shortage Rate       & 67.7\%    & $\frac{\text{HH with shortage}}{\text{HH with valid response}}$ & Headline vulnerability metric. Baseline for all targeting. \\
+  Food-Shortage HH Count   & 32,097    & Count(\texttt{food\_shortage\_flag} $= 1$) & Translates the rate into a countable population. \\
   \rowcolor{rhoRow}
-  Median Months of Shortage & 3.0 mo   & Severity marker: 3 months suggests seasonal lean-period insecurity. \\
-  Irrigation Access Rate  & 20.2\%     & Directly linked to the 16.2pp food shortage gap. \\
+  Median Months Shortage   & 3.0 mo    & median(\texttt{foodshortagetime}) & Severity indicator — seasonal lean-period risk. \\
+  Irrigation Access Rate   & 20.2\%    & $\frac{\text{irrigated\_flag} = 1}{\text{total HH}}$ & Linked to 17.4pp food shortage advantage on D3. \\
   \rowcolor{rhoRow}
-  Median Land Productivity & 600 kg/ha & Farm performance baseline. Quartiles used to segment risk profiles. \\
-  Median Income per MAE   & \$123 PPP  & Welfare baseline. PPP-normalised for cross-country comparability. \\
+  Median Land Productivity & 600 kg/ha & median(\texttt{land\_productivity\_kg\_per\_ha}) & Farm performance baseline. Quartiles segment risk. \\
+  Median Income per MAE    & \$112 PPP & {\footnotesize median(\texttt{income\_ppp\_per\_mae})} & Welfare baseline, PPP-normalised cross-country. \\
   \rowcolor{rhoRow}
-  Lowest-Income HH Share  & 19.1\%     & Bottom quintile faces a 19.9pp higher shortage rate than top quintile. \\
+  Shortage — Lowest Quintile & 75.8\%  & avg(\texttt{food\_shortage\_flag}) where quintile $= 1$ & Bottom quintile faces highest structural risk. \\
   \bottomrule
-\end{tabularx}
+\end{tabularx}}
 
 \newpage
 
@@ -440,154 +379,129 @@ Seven KPIs form the backbone of the dashboard and the basis of all stakeholder-f
 
 \nb{notebooks/03\_eda.ipynb committed to GitHub}
 
-\subsection{How Food Insecurity Is Distributed}
+\subsection{Food Shortage Distribution}
 
-Of 47,399 households with valid food shortage responses, 67.7\% — or 32,097 households — reported experiencing a food shortage period in the past year. The median shortage lasted three months, consistent with seasonal lean-period insecurity rather than year-round deprivation. This framing matters for intervention design: food storage bridges and income smoothing programmes targeting the lean season are likely to be more cost-effective than general food assistance.
+Of 47,399 households with valid responses, 67.7\% reported food shortage in the past year. Country-level variation is extreme: the Democratic Republic of Congo leads at 94.5\% (among countries with $\geq$500 households), followed by Rwanda (94.3\%), Comoros (90.7\%), and Malawi (89.5\%). At the other end: India (10.5\%), Palestine (14.9\%), Nepal (18.1\%), and Costa Rica (18.6\%). This 84-point spread confirms that country-level context — conflict, infrastructure, climate — is a major moderating factor.
 
-Country-level variation is extreme and cannot be explained by farm structure alone. The Democratic Republic of Congo leads among countries with at least 500 survey households at 94.5\% food shortage, followed by Rwanda (94.3\%), Senegal (91.5\%), and Comoros (90.7\%). At the other end, India records 10.5\%, Palestine 14.9\%, Nepal 18.1\%, and Costa Rica 18.6\%. This 84-point spread between the highest and lowest-risk countries confirms that national context — conflict exposure, infrastructure quality, market access, climate — is a powerful moderating factor that must be controlled when comparing structural drivers across countries.
+\subsection{Structural Drivers}
 
-\subsection{Irrigation: The Clearest Single Driver}
+\textit{Irrigation} creates the clearest outcome gap: irrigated households face a 55.1\% shortage rate vs.\ 72.4\% for rainfed — a 17.4pp difference — yet only 20.2\% of households have access. \textit{Land productivity} shows the widest spread: Q1 households face 83\% shortage vs.\ 54\% for Q4, a 29.1pp gap. \textit{Income position} contributes a 19.8pp gap between the bottom and top income quintiles within each country. \textit{Crop diversity} shows a positive correlation with food security in EDA but weakens significantly after controlling for income — suggesting the effect is largely mediated by household wealth.
 
-Households with irrigation access face a 55.3\% food shortage rate. Households without it face 71.5\%. That 16.2 percentage-point gap is the largest and most actionable structural difference visible in the data — and it exists against a backdrop where only 20.2\% of households have any irrigation access at all. The implication is that irrigation expansion has both a large effect size and a large addressable population. It is the intervention with the greatest potential reach.
+\subsection{Food Security Instrument Validation}
 
-\subsection{Land Productivity: The Deepest Structural Divide}
+Moving from 0 to 8 affirmative FIES responses corresponds to a 72.1pp increase in observed food shortage rate in the 24,093 households where both measures exist — confirming the self-report question and the FIES instrument capture the same underlying condition.
 
-Splitting households into productivity quartiles reveals the most dramatic gradient in the dataset. Q1 households — those in the lowest land productivity quartile — face an 83\% food shortage rate. Q4 households face 54\%. That 29.1 percentage-point gap between the most and least productive farms is larger than the irrigation gap, larger than the income quintile gap, and — crucially — it persists after controlling for country in the regression model. Low land productivity is not a proxy for country poverty; it is an independent structural risk factor.
+\subsection{Gender}
 
-\subsection{Income Position}
-
-The \texttt{country\_income\_rank\_pct} field ranks each household's income within its own country on a 0--1 scale. This design removes cross-country currency and cost-of-living differences, leaving a clean relative welfare measure with near-zero skewness (0.08). The lowest income quintile faces a food shortage rate 19.9 percentage points above the highest quintile — a consistent gradient that confirms income position as a strong predictor of vulnerability even when controlling for the farm structural variables that are partly collinear with it.
-
-\subsection{Crop Diversity and Gender}
-
-Households growing three or more distinct crop types show lower food shortage rates in the exploratory data. However, this effect does not survive multivariate control: crop diversity co-varies with household wealth, so much of the apparent protective effect is actually the income effect in disguise. This matters for programme design — crop diversification alone is unlikely to drive food security improvements without accompanying income support.
-
-Gender shows a modest but statistically significant pattern. Female survey respondents report marginally higher food shortage rates in bivariate analysis (Cramér's V = 0.078). The median share of agricultural value controlled by female adults is near parity at 0.5 in the aggregate, though significant within-country heterogeneity is expected and not captured by the country-level view.
-
-\subsection{FIES and HFIAS Validation}
-
-Moving from 0 to 8 affirmative FIES responses corresponds to a 72.1 percentage-point increase in observed food shortage rate in the 24,097 households where both measures are available. This confirms that the self-reported food shortage question and the FIES instrument are measuring the same underlying construct. The HFIAS validation produces a similar directional result (Mann-Whitney U, $p \approx 0$), though the HFIAS instrument was not consistently administered across waves and cannot serve as a primary metric.
-
-\newpage
+Female respondents show a marginally higher food shortage rate (Cramér's V = 0.078). Median female agricultural value control is near parity at 0.5, though this aggregated figure masks significant within-country variation.
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Statistical Analysis}
 
 \nb{notebooks/04\_statistical\_analysis.ipynb committed to GitHub}
 
-\subsection{Testing the Categorical Drivers}
+\subsection{Categorical Driver Tests}
 
-Chi-square tests with Cramér's V effect sizes confirm that the four main categorical drivers are all significantly and independently associated with food shortage status. Low education is the single strongest categorical predictor (Cramér's V = 0.145), closely followed by irrigation access (0.138), with respondent sex (0.078) and off-farm income participation (0.057) contributing smaller but consistent associations.
+Chi-square tests with Cramér's V confirm all four categorical drivers are independently associated with food shortage at $p < 10^{-30}$:
 
-\begin{tabularx}{\linewidth}{@{}p{4.4cm} r p{1.8cm} L@{}}
+\begin{tabularx}{\linewidth}{@{}p{3.8cm} r p{1.8cm} L@{}}
   \tH{Driver} & \tH{Chi-square} & \tH{Cramér's $V$} & \tH{Interpretation} \\
   \rowcolor{rhoRow}
-  Low education           & 874.1 & 0.145 & Strongest categorical predictor \\
-  Irrigation access       & 869.5 & 0.138 & Near-equal to education \\
+  Low education      & 874.1 & 0.145 & Strongest categorical predictor \\
+  Irrigation access  & 869.5 & 0.138 & Near-equal to education \\
   \rowcolor{rhoRow}
-  Respondent sex (female) & 281.5 & 0.078 & Significant, weaker effect \\
-  Off-farm participation  & 152.2 & 0.057 & Consistent, weakest of four \\
+  Respondent sex     & 281.5 & 0.078 & Significant, weaker effect \\
+  Off-farm income    & 152.2 & 0.057 & Consistent, weakest of four \\
   \bottomrule
 \end{tabularx}
 
-\subsection{Non-Parametric Numeric Tests}
+\subsection{Numeric Associations}
 
-Income, land productivity, and other continuous variables carry extreme right skew that makes parametric t-tests inappropriate. Mann-Whitney U tests were used instead, and Spearman's $\rho$ was computed for each numeric predictor against the food shortage flag. Land productivity shows the strongest monotonic association ($\rho = -0.240$, $p \approx 0$), meaning that as productivity increases, food shortage probability falls consistently across the full range of observed values. Within-country income rank shows a similar pattern.
+Mann-Whitney U tests were used (parametric tests inappropriate given extreme skew). Spearman's $\rho$ for land productivity vs.\ food shortage flag: $-0.240$ ($p \approx 0$). FIES validation: Spearman $\rho = 0.587$ (n = 24,093, $p \approx 0$). HFIAS validation: Mann-Whitney effect = 0.334 (n = 5,911, $p < 10^{-170}$).
 
-FIES and HFIAS validation tests confirm the primary outcome:
+\subsection{Multivariable Regression}
 
-\begin{tabularx}{\linewidth}{@{}p{5.0cm} p{2.4cm} r p{1.5cm} R@{}}
-  \tH{Validation} & \tH{Test} & \tH{N} & \tH{Effect} & \tH{p-value} \\
-  \rowcolor{rhoRow}
-  FIES vs.\ food shortage  & Spearman $\rho$ & 24,097 & 0.587 & $\approx 0$ \\
-  HFIAS by shortage group  & Mann-Whitney U  &  5,911 & 0.334 & $<10^{-170}$ \\
-  \bottomrule
-\end{tabularx}
+Country- and year-controlled logistic regression on 34,927 complete households, with log transformations applied to skewed continuous predictors:
 
-\subsection{Logistic Regression}
-
-A country- and year-fixed-effects logistic regression was fitted on 34,927 households with complete data. Log transformations were applied to the heavily skewed continuous predictors before inclusion. The model identifies income position as the strongest adjusted protective factor, followed by land area, then land productivity. Low education is the strongest risk-amplifying factor.
-
-\begin{tabularx}{\linewidth}{@{}p{4.5cm} p{1.3cm} p{3.0cm} L@{}}
+\begin{tabularx}{\linewidth}{@{}p{4.2cm} p{1.3cm} p{3.2cm} L@{}}
   \tH{Predictor} & \tH{Odds Ratio} & \tH{95\% CI} & \tH{Interpretation} \\
   \rowcolor{rhoRow}
-  Within-country income rank & 0.456 & [0.408, 0.510] & Strongest protective effect — 54\% lower odds per unit increase \\
-  Log cultivated area        & 0.671 & [0.637, 0.706] & Larger land area reduces odds \\
+  Within-country income rank & 0.456 & [0.408, 0.510] & Strongest protective effect \\
+  Log cultivated area        & 0.671 & [0.637, 0.706] & Larger land reduces odds \\
   \rowcolor{rhoRow}
   Log land productivity      & 0.828 & [0.810, 0.845] & Higher productivity reduces odds \\
-  Low education flag         & 1.268 & [1.184, 1.358] & 27\% higher odds of food shortage \\
+  Low education flag         & 1.268 & [1.184, 1.358] & 27\% higher odds of shortage \\
   \rowcolor{rhoRow}
-  Household size             & 1.011 & [1.006, 1.017] & Each additional member adds 1.1\% \\
+  Household size             & 1.011 & [1.006, 1.017] & Small additive risk per member \\
   \bottomrule
 \end{tabularx}
-
-\vspace{6pt}
-\begin{findingbox}
-The model achieves a McFadden pseudo-$R^2$ of 0.240 and a ROC-AUC of 0.812. Five farm-level variables correctly classify food security status in 81\% of households — demonstrating that vulnerability is structurally predictable and that household targeting based on observable farm characteristics is statistically viable.
-\end{findingbox}
 
 \subsection{Vulnerability Segmentation}
 
-k-means clustering was applied to food security, farm structure, and income indicators. Silhouette scores were evaluated for k between 3 and 6; k = 4 was selected as the best balance of separation and interpretability. 13,075 households lacked sufficient data to be assigned a cluster and are treated as unclassified throughout.
+k-means clustering (k=4 selected via silhouette score) on food security, farm structure, and income indicators identifies four distinct household profiles:
 
-\begin{tabularx}{\linewidth}{@{}p{4.2cm} r p{1.6cm} p{1.4cm} L@{}}
-  \tH{Profile} & \tH{HH} & \tH{Shortage} & \tH{Irrigated} & \tH{Defining Characteristics} \\
+\begin{tabularx}{\linewidth}{@{}p{3.8cm} r p{1.6cm} p{1.4cm} L@{}}
+  \tH{Profile} & \tH{HH} & \tH{Shortage} & \tH{Irrigated} & \tH{Key Characteristics} \\
   \rowcolor{rhoRow}
-  Low-income rainfed      & 14,330 & 78.7\% & 0.3\%  & Smallest farms, lowest income rank (0.24), minimal crop diversity \\
-  Large-HH extensive      &  6,860 & 72.3\% & 4.4\%  & Largest households (13 members), extensive land, lowest productivity \\
+  Low-income rainfed    & 14,330 & 78.7\% & 0.3\%  & Smallest farms, lowest income (rank 0.24) \\
+  Large-HH extensive    &  6,860 & 72.3\% & 4.4\%  & 13-member average, extensive land, low productivity \\
   \rowcolor{rhoRow}
-  Diversified better-off  & 12,855 & 62.7\% & low    & Higher income rank (0.70), more crop diversity; still majority food insecure \\
-  Irrigated high-prod.    &  7,753 & 55.8\% & high   & Lowest-risk segment; irrigation is the distinguishing factor \\
+  Diversified better-off & 12,855 & 62.7\% & 0.0\%  & Higher income rank (0.70), more crop diversity \\
+  Irrigated high-prod.  &  7,753 & 55.8\% & 100\%  & Lowest risk; irrigation is the distinguishing factor \\
   \bottomrule
 \end{tabularx}
+
+\vspace{3pt}
+{\small\color{rhoGray}\itshape 13,075 households unclassified due to insufficient data across clustering variables.}
 
 \newpage
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Tableau Dashboard Design}
 
-\nb{tableau/screenshots/ and tableau/dashboard\_links.md in GitHub}
+\nb{Published at \href{https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION}{public.tableau.com} — workbook: RHoMIS DASHBOARD. Screenshots below; source file in \texttt{tableau/} on GitHub.}
 
-\subsection{What the Dashboard Is For}
+\subsection{Objective}
 
-The Tableau system serves a single decision: where should a development organisation focus its next intervention, and what structural factor should it target? The four-dashboard design moves a user from geographic overview to farm-profile detail to structural driver analysis to income position, each dashboard deepening the story established by the previous one. Cross-dashboard navigation buttons on every view allow users to move through the system without returning to Tableau's menu.
+The system supports a single decision: where should a development organisation focus its next intervention, and what structural factor should it target? Four interconnected dashboards move a user from geographic overview to farm-profile detail to structural driver analysis to income position. Cross-dashboard navigation buttons on every view let users move through the system without returning to the Tableau menu.
 
-\subsection{Dashboard Structure}
+\subsection{Structure}
 
 \begin{tabularx}{\linewidth}{@{}p{3.8cm} L@{}}
   \tH{Dashboard} & \tH{Purpose and Key Charts} \\
   \rowcolor{rhoRow}
-  D1 — Risk Overview & Country choropleth coloured by food shortage rate. KPI summary cards. Geographic entry point for prioritisation. \\
-  D2 — Vulnerability Profiles & Treemap of k-means segments (size = household count, colour = shortage rate). Box plot of income rank by profile. \\
+  D1 — Risk Overview & Choropleth world map of food shortage rate by country; horizontal bar chart of shortage rate ranked by country; lollipop chart of median months of food shortage; five KPI summary cards \\
+  D2 — Vulnerability Profiles & Grouped bar chart of food shortage rate by vulnerability profile and country; pie chart of profile distribution; demographic indicator heatmap by profile (irrigation rate, low-education rate, female respondent rate, off-farm income rate) \\
   \rowcolor{rhoRow}
-  D3 — Structural Drivers & Productivity quartile heatmap. Irrigation gap chart. Crop diversity bar with sample size overlay. Land size lollipop. \\
-  D4 — Income Position & Bubble scatter: income rank vs.\ shortage rate per country, sized by household count. Country income rank box plot. \\
+  D3 — Structural Drivers & Side-by-side bar chart of food shortage rate by productivity quartile and irrigation type; bar chart of food shortage rate by crop diversity count; scatter plot of land productivity vs.\ food shortage rate by country \\
+  D4 — Income Position & Scatter plot of income rank vs.\ food shortage rate per country, coloured by vulnerability profile; grouped bar chart of median income by profile with and without off-farm income; diverging bar chart of income quintile distribution by country \\
   \bottomrule
 \end{tabularx}
 
-All four dashboards share a unified filter set — Country, Vulnerability Profile, and Irrigation Status — applied to all worksheets via the data source. This ensures that KPI cards and charts respond consistently to the same filter selection. Reference lines on the scatter charts are set to fixed constants (global average 67.7\% and country income median 0.5) rather than dynamic averages that would shift under filtering.
+All dashboards include Country and Vulnerability Profile filters. D1 additionally filters by Irrigated Flag, Respondent Sex, and Year. Reference lines on scatter charts use fixed constants — global food shortage average 67.7\% and country income median 0.5 — not dynamic averages that shift under filtering.
 
-\subsection{Dashboard Screenshots}
+\subsection{Screenshots}
 
-\begin{center}
-\fbox{\begin{minipage}{0.92\linewidth}
-  \centering\vspace{3cm}
-  \placeholder{D1 — Risk Overview: choropleth + KPI cards — insert screenshot}
-  \vspace{3cm}
-\end{minipage}}
-\captionof{figure}{D1 — Risk Overview: country-level food shortage rate map with KPI summary bar.}
-\end{center}
+\noindent\includegraphics[width=\linewidth]{d1_risk_overview.jpg}
+\captionof{figure}{D1 — Risk Overview: choropleth map, food shortage rate by country, and median months of shortage.}
 
-\begin{center}
-\fbox{\begin{minipage}{0.92\linewidth}
-  \centering\vspace{3cm}
-  \placeholder{D3 — Structural Drivers: productivity heatmap, irrigation gap, crop diversity, land size lollipop — insert screenshot}
-  \vspace{3cm}
-\end{minipage}}
-\captionof{figure}{D3 — Structural Drivers: four-chart panel answering which farm characteristics drive food insecurity.}
-\end{center}
+\vspace{8pt}
 
-\noindent\textbf{Tableau Public URL:} \placeholder{INSERT TABLEAU PUBLIC URL BEFORE SUBMISSION}
+\noindent\includegraphics[width=\linewidth]{d2_vulnerability_profiles.jpg}
+\captionof{figure}{D2 — Vulnerability Profiles: food shortage rate by profile and country, profile distribution, and demographic indicator heatmap.}
+
+\clearpage
+
+\noindent\includegraphics[width=\linewidth]{d3_structural_drivers.jpg}
+\captionof{figure}{D3 — Structural Drivers: productivity quartile by irrigation type, crop diversity bar, and land productivity scatter by country.}
+
+\vspace{8pt}
+
+\noindent\includegraphics[width=\linewidth]{d4_income_position.jpg}
+\captionof{figure}{D4 — Income Position: income rank vs.\ food shortage scatter, off-farm income comparison by profile, and income quintile distribution by country.}
+
+\noindent\textbf{Tableau Public URL:}\\[2pt]
+{\small\href{https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION}{\nolinkurl{https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION}}}
 
 \newpage
 
@@ -596,29 +510,29 @@ All four dashboards share a unified filter set — Country, Vulnerability Profil
 
 \begin{enumerate}
 
-  \item \textbf{Food insecurity is the structural norm.} A 67.7\% global rate confirms that programmes designed on the assumption that most farms are food-secure will systematically miss their target population.
+  \item \textbf{Food insecurity is the structural norm, not the exception.} A 67.7\% global rate means that programmes designed on the assumption that most farms are food-secure will miss their target population entirely.
 
-  \item \textbf{Irrigation offers the largest addressable gap.} The 16.2pp food shortage difference between irrigated and rainfed households, against a backdrop of only 20.2\% irrigation coverage, means that infrastructure investment reaches the most households with the largest measurable outcome change.
+  \item \textbf{Irrigation offers the largest addressable gap.} A 17.4pp food shortage difference against 20.2\% coverage means infrastructure investment has both a large effect size and a large addressable population.
 
-  \item \textbf{Low land productivity is the deepest structural risk.} The 29.1pp gap between Q1 and Q4 productivity quartiles — confirmed in the controlled regression — is an independent risk factor that is not reducible to country poverty or income differences.
+  \item \textbf{Land productivity is the deepest structural divide.} The 29.1pp gap between Q1 and Q4 productivity quartiles is an independent risk factor — not a proxy for country poverty or income.
 
-  \item \textbf{Income position is the single strongest predictor.} An odds ratio of 0.456 for within-country income rank means that addressing income itself — not just its agricultural correlates — can move the food security outcome.
+  \item \textbf{Income position is the single strongest predictor.} In the controlled regression, income rank has the strongest protective odds ratio (0.456). Addressing income alone — without any farm structural change — can move the food security outcome.
 
-  \item \textbf{Low education amplifies every other risk.} With the highest Cramér's V (0.145) and an adjusted odds ratio of 1.268, low education functions as a vulnerability multiplier. Integrated programmes that pair agricultural support with literacy access should expect compounding gains.
+  \item \textbf{Low education amplifies every other risk.} With the highest Cramér's V (0.145) and an odds ratio of 1.268, low education functions as a vulnerability multiplier across all other predictors.
 
-  \item \textbf{Four countries need immediate attention.} DRC, Rwanda, Senegal, and Comoros all exceed 90\% food shortage rates in a population that can only be partially explained by farm structure. Country-level factors — conflict, infrastructure, climate — carry substantial weight and must inform programme design.
+  \item \textbf{DRC, Rwanda, Senegal, and Comoros need immediate priority.} All four exceed 90\% food shortage rates. Country-level factors — conflict, infrastructure, climate — carry substantial explanatory weight beyond farm structure.
 
-  \item \textbf{Low-risk countries are proof of concept.} India (10.5\%), Palestine (14.9\%), Nepal (18.1\%), and Costa Rica (18.6\%) show that smallholder food security can be substantially reduced. Their higher irrigation coverage and income diversification rates are worth examining as benchmarks.
+  \item \textbf{Low-risk countries prove improvement is possible.} India (10.5\%), Palestine (14.9\%), Nepal (18.1\%), and Costa Rica (18.6\%) demonstrate that smallholder food insecurity is not an inevitable condition.
 
-  \item \textbf{The most vulnerable cluster has almost no irrigation.} The low-income rainfed cluster (14,330 households, 78.7\% shortage) has 0.3\% irrigation access — making it the clearest single target for infrastructure investment in the entire dataset.
+  \item \textbf{The most vulnerable cluster has almost no irrigation.} Low-income rainfed households (14,330, 78.7\% shortage) have 0.3\% irrigation coverage — the most concentrated intervention target in the dataset.
 
-  \item \textbf{Large farms are not protective.} The large-household extensive cluster holds significantly more land than other profiles but records a 72.3\% food shortage rate. Extensive area without productivity improvement does not translate to food security.
+  \item \textbf{Extensive land does not protect against food insecurity.} The large-household extensive cluster holds more land than any other profile yet records a 72.3\% shortage rate. Land area without productivity is not protective.
 
-  \item \textbf{Crop diversity needs income support to work.} The positive EDA correlation between crop diversity and food security weakens after income controls, suggesting that diversification programmes are most effective when bundled with income access rather than delivered in isolation.
+  \item \textbf{Crop diversity requires income support to be effective.} Its correlation with food security weakens after income controls — diversification programmes work best when bundled with income access, not delivered in isolation.
 
-  \item \textbf{Three months of shortage implies seasonal targeting.} A 3-month median shortage duration points to the lean season as the primary trigger. Storage improvement and income-bridge programmes timed to the lean season are likely more cost-effective than general food aid.
+  \item \textbf{A three-month median duration points to seasonal targeting.} Lean-season food storage bridges and income smoothing programmes are likely more cost-effective than general food assistance.
 
-  \item \textbf{The model enables vulnerability pre-screening.} With an ROC-AUC of 0.812 using five observable farm variables, a simplified vulnerability score derived from this model could screen households for intervention eligibility — reducing targeting cost without requiring a new full survey.
+  \item \textbf{Vulnerability is structurally predictable.} The five-variable regression model correctly separates food-secure and food-insecure households 81\% of the time, confirming that targeting based on observable farm characteristics is statistically viable.
 
 \end{enumerate}
 
@@ -628,85 +542,95 @@ All four dashboards share a unified filter set — Country, Vulnerability Profil
 \section{Recommendations}
 
 \begin{findingbox}
-\textbf{Recommendation 1: Irrigation expansion in the low-income rainfed cluster}
-
-The low-income rainfed cluster comprises 14,330 households with a 78.7\% food shortage rate and just 0.3\% irrigation coverage. The data shows a clear, statistically confirmed 16.2 percentage-point improvement in food security outcomes for irrigated vs.\ rainfed households. Irrigation expansion — starting with small-scale and drip systems in DRC, Rwanda, Senegal, and Comoros — directly addresses the largest structural gap in the dataset. Estimated impact: approximately 2,300 households per 1,000 reached exit acute food insecurity if irrigation coverage moves from 0.3\% to 20\%. Implementation timeline: 12--36 months per programme cycle; requires water-source access audits and infrastructure capital.
+\textbf{Rec 1 — Irrigation expansion in the low-income rainfed cluster}\\[4pt]
+\textit{Insight:} 17.4pp food shortage gap between irrigated and rainfed; only 0.3\% irrigation in the highest-risk cluster (14,330 HH, 78.7\% shortage).\\[3pt]
+\textit{Action:} Prioritise small-scale and drip irrigation in DRC, Rwanda, Comoros, and Malawi — starting with the low-income rainfed cluster.\\[3pt]
+\textit{Impact:} Estimated 2,300 households per 1,000 reached exit acute food insecurity if coverage moves from 0.3\% to 20\%.\\[3pt]
+\textit{Feasibility:} Requires water-source audits and infrastructure capital. Timeline: 12--36 months.
 \end{findingbox}
 
-\vspace{8pt}
+\vspace{7pt}
 
 \begin{findingbox}
-\textbf{Recommendation 2: Productivity support for Q1 and Q2 households}
-
-Approximately 23,000--25,000 households in the survey population fall in the bottom two land productivity quartiles, which carry food shortage rates of 83\% and above. The logistic model confirms productivity as the strongest adjusted farm structural predictor ($p \approx 0$, OR = 0.828 per log unit). Deploying extension services — improved seed varieties, soil fertility management, and agronomic training — to Q1 and Q2 households is among the fastest and lowest-cost interventions available. Estimated impact: a 10--15pp reduction in food shortage rate for Q1 households that achieve Q2 productivity levels. Implementation timeline: within 6 months through existing extension networks.
+\textbf{Rec 2 — Productivity support for Q1 and Q2 farms}\\[4pt]
+\textit{Insight:} 29.1pp gap between productivity quartiles; confirmed as independent driver in regression.\\[3pt]
+\textit{Action:} Deploy extension services (improved seed varieties, soil management) to the bottom two productivity quartiles — approximately 24,000 households.\\[3pt]
+\textit{Impact:} Estimated 10--15pp shortage rate reduction for Q1 households reaching Q2 productivity levels.\\[3pt]
+\textit{Feasibility:} Low-cost, fast-deployable via existing extension networks. Timeline: within 6 months.
 \end{findingbox}
 
-\vspace{8pt}
+\vspace{7pt}
 
 \begin{findingbox}
-\textbf{Recommendation 3: Income diversification and education for the bottom income quintile}
-
-Income position is the single strongest predictor of food security in the controlled model (OR = 0.456), and low education is the strongest risk amplifier (OR = 1.268). Households that combine both characteristics carry the highest cumulative vulnerability odds. The recommended intervention integrates off-farm income pathway support — rural microenterprise access, remittance facilitation — with adult literacy programmes for bottom-quintile households with low education. Estimated impact: 4--8pp food shortage reduction for households that move from the bottom to the second income quintile. Implementation: income support is deployable within 3--6 months via existing microfinance channels; education requires local government coordination.
+\textbf{Rec 3 — Income diversification and education for the bottom quintile}\\[4pt]
+\textit{Insight:} Income rank is the strongest predictor (OR 0.456); low education amplifies all other risks (OR 1.268); both compound in the lowest quintile.\\[3pt]
+\textit{Action:} Integrate off-farm income pathways (rural microenterprise, remittance access) and adult literacy for bottom-quintile, low-education households.\\[3pt]
+\textit{Impact:} Estimated 4--8pp shortage reduction per income quintile step.\\[3pt]
+\textit{Feasibility:} Income support via microfinance within 3--6 months; education requires government coordination.
 \end{findingbox}
+
+\newpage
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Impact Estimation}
 
-The estimates below are directional projections derived from the quartile, quintile, and profile comparisons in the EDA. They are consistent with the logistic regression odds ratios and should be treated as order-of-magnitude guidance for intervention planning, not causal impact guarantees.
-
-\begin{tabularx}{\linewidth}{@{}p{3.6cm} p{3.2cm} p{2.4cm} L@{}}
-  \tH{Intervention} & \tH{Target Population} & \tH{Estimated Effect} & \tH{HH Exiting Insecurity per 1,000 Reached} \\
+\begin{tabularx}{\linewidth}{@{}p{3.4cm} p{3.0cm} p{2.4cm} L@{}}
+  \tH{Intervention} & \tH{Target Population} & \tH{Estimated Effect} & \tH{HH Exiting Insecurity (per 1,000 reached)} \\
   \rowcolor{rhoRow}
-  Irrigation expansion   & 14,330 rainfed cluster & $-16.2$pp  & $\approx 2{,}300$ \\
-  Productivity support   & 24,000 Q1+Q2 farms     & $-10$--15pp & $\approx 1{,}200$--$1{,}800$ \\
+  Irrigation expansion  & 14,330 rainfed cluster  & $-17.4$pp   & $\approx$2,300 \\
+  Productivity support  & 24,000 Q1+Q2 farms      & $-10$--15pp & $\approx$1,200--1,800 \\
   \rowcolor{rhoRow}
-  Income + education     & 10,200 bottom quintile, low education & $-4$--8pp & $\approx 400$--$800$ \\
+  Income + education    & 10,200 bottom quintile  & $-4$--8pp   & $\approx$400--800 \\
   \bottomrule
 \end{tabularx}
 
-\vspace{6pt}
-The urgency case rests on the scale of the problem: 32,097 households currently in food shortage, with structural drivers that are identifiable, measurable, and addressable through programme types that already exist.
+Estimates are derived from quartile and quintile comparisons in the EDA and should be treated as directional, not causal. The urgency case: 32,097 households are currently in food shortage, with structural drivers that are identifiable and addressable through existing programme types.
+
+\vspace{10pt}
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Limitations}
 
-The most fundamental constraint is the cross-sectional nature of the survey. Each household appears only once, which makes causal inference impossible. Every regression coefficient and every group difference reported here is an association — it describes what co-occurs with food insecurity, not what causes it. Intervention impact estimates are constructed from group comparisons, not experimental effects.
+\begin{itemize}
+  \item \textbf{Cross-sectional design.} Each household appears only once. All findings are associations, not causal effects. Intervention impact estimates are group comparisons, not experimental results.
+  \item \textbf{Self-reported outcomes.} Food shortage status is subject to recall and social desirability bias. FIES and HFIAS validation supports reliability, but objective measurement was not available.
+  \item \textbf{Income data artefacts.} Extreme income outliers (up to 350 billion PPP) arise from data entry errors in multi-crop income fields. All income analysis uses within-country rank, which is robust to absolute outliers.
+  \item \textbf{Uneven year distribution.} 2018 = 22\% of sample; 2015 = 2\%. Year-over-year trend analysis excluded. Year controlled as a fixed effect in regression only.
+  \item \textbf{Region names unstandardised.} Sub-national comparison below country level is not possible without consistent administrative naming.
+\end{itemize}
 
-Self-reported food shortage status is subject to recall bias and social desirability effects, particularly in survey contexts where acknowledging food shortage may carry stigma. The FIES and HFIAS validation tests support the reliability of the primary measure, but objective alternatives such as dietary recall were not available in this dataset.
-
-Income data carries extreme skew driven by multiplication artefacts in multi-crop income fields, producing values in the billions of PPP dollars. All income analysis uses the within-country income rank, which is robust to these absolute outliers and produces a near-uniform distribution (skewness: 0.08). Raw income figures are never used in any analysis or chart.
-
-Year distribution imbalance — 2018 accounts for 22\% of the sample — rules out year-over-year trend analysis. The year variable is included only as a fixed effect in regression, not as a meaningful analytical dimension. Sub-national region names are not standardised across countries, preventing any consistent sub-national comparison. Finally, the HFIAS frequency score is 87.5\% missing and was not used in any primary analysis.
+\vspace{10pt}
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Future Scope}
 
-The most impactful extension would be longitudinal panel linkage. If the same households could be traced across survey years, within-household change estimates would move the analysis from association toward causal inference — enabling programme impact evaluation rather than mere profiling.
+\begin{itemize}
+  \item \textbf{Longitudinal panel linkage.} Tracing the same households across survey years would enable within-household change estimates and move toward causal inference.
+  \item \textbf{Predictive targeting tool.} The five-variable model is strong enough to serve as a lightweight household vulnerability screening tool applied to new survey waves, reducing targeting cost without a full analytical refresh.
+  \item \textbf{Climate data integration.} Linking GPS coordinates to satellite-derived rainfall, NDVI, and temperature anomaly data would isolate structural farm characteristics from year-specific climate shocks.
+  \item \textbf{Sub-national disaggregation.} Standardised region names would unlock district- or province-level analysis within countries.
+\end{itemize}
 
-The logistic regression model (ROC-AUC 0.812) is already strong enough to serve as a lightweight household vulnerability scoring tool. Applied to new survey waves as they are collected, a simplified version of the model could pre-screen households for intervention eligibility without requiring a full new analytical cycle, significantly reducing programme targeting costs.
-
-On the data side, linking household GPS coordinates to satellite-derived rainfall, NDVI (vegetation index), and temperature anomaly data would allow weather-year context to be separated from structural farm characteristics in the model — isolating the long-run structural drivers from year-specific climate shocks. Standardisation of sub-national region names across survey waves would unlock within-country geographic disaggregation down to district or province level. Finally, a live-connected Tableau dashboard pulling from an updating survey pipeline would allow development organisations to monitor programme-area trends as new waves arrive, rather than waiting for a periodic full refresh.
+\newpage
 
 % ═══════════════════════════════════════════════════════════════════
 \section{Conclusion}
 
-This project applied a full data analytics pipeline to a single urgent question: which smallholder farming households, across 35 countries, face the highest food insecurity risk, and what drives it? The analysis of 54,873 households confirmed that food insecurity is pervasive at 67.7\%, geographically concentrated in Central and West Africa, and structurally driven by a small number of addressable factors. Income position (odds ratio: 0.456), cultivated land area (0.671), land productivity (0.828), and low education (1.268) emerge from a country-controlled logistic model with an ROC-AUC of 0.812 — strong enough to support household-level vulnerability targeting. The clearest single action is irrigation expansion: reaching the 79.8\% of households currently without it, beginning with the low-income rainfed cluster at 78.7\% food shortage and 0.3\% irrigation coverage, is associated with a 16 percentage-point improvement in food security probability. Development organisations that concentrate irrigation, productivity support, and income diversification on the highest-risk cluster will reach the largest food-insecure population with the highest-return combination of evidence-based interventions.
+Analysis of 54,873 smallholder households across 35 countries confirmed that food insecurity is pervasive (67.7\%), geographically concentrated in Central and West Africa, and structurally driven by a small number of addressable factors. Income position, cultivated land area, land productivity, and low education emerge as the four most important predictors in a country-controlled regression. The clearest single action is irrigation expansion: reaching the 79.8\% of households currently without it — beginning with the low-income rainfed cluster at 78.7\% shortage and 0.3\% irrigation coverage — is associated with a 17-percentage-point improvement in food security probability. Development organisations that concentrate irrigation, productivity support, and income diversification on the highest-risk cluster will reach the largest food-insecure population with the highest-return combination of evidence-based interventions.
 
 % ═══════════════════════════════════════════════════════════════════
-\newpage
 \appendix
 \renewcommand{\thesection}{\Alph{section}}
 
 \section{Data Dictionary}
 
-The full 46-column reference for \texttt{rhomis\_tableau\_ready.csv} is maintained in \texttt{docs/data\_dictionary.md} in the GitHub repository. It covers column type, missing rate, value range, and analytical caveats for all 46 analysis-ready fields, organised into seven thematic groups: Identity \& Geography, Food Security, Demographics, Farm \& Land, Income, Gender \& Resource Control, and Vulnerability Segmentation. The data limitations table, derived columns explanation, and canonical source references are all included.
+Full column-by-column reference for all 46 fields in \texttt{rhomis\_tableau\_ready.csv} is maintained in \texttt{docs/data\_dictionary.md} in the GitHub repository, covering type, missing rate, value range, and analytical caveats for every field across seven thematic groups.
 
 \section{Contribution Matrix}
 
-Contribution claims must match GitHub Insights, PR history, and committed file evidence. Any mismatch at the time of assessment may result in individual grade adjustments.
-
-\vspace{8pt}
-\begin{tabularx}{\linewidth}{@{}p{3.4cm} CCCCCCC@{}}
+\vspace{6pt}
+{\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{@{}p{3.0cm} CCCCCCC@{}}
   \rowcolor{rhoRed}
   {\color{white}\bfseries Name} &
   {\color{white}\bfseries Dataset} &
@@ -715,26 +639,23 @@ Contribution claims must match GitHub Insights, PR history, and committed file e
   {\color{white}\bfseries Stats} &
   {\color{white}\bfseries Tableau} &
   {\color{white}\bfseries Report} &
-  {\color{white}\bfseries PPT} \\
+  {\color{white}\bfseries PPT/Viva} \\
   \rowcolor{rhoRow}
-  Mahir Abdullah     & \checkmark & \checkmark & \checkmark & \checkmark &            & \checkmark & \checkmark \\
-  Manas Vivek Saxena &            &            &            &            & \checkmark &            & \checkmark \\
+  Mahir Abdullah     & $\checkmark$ &              & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \\
+  Manas Vivek Saxena & $\checkmark$ & $\checkmark$ &              &              &              &              & $\checkmark$ \\
   \rowcolor{rhoRow}
-  Manya Verma        &            & \checkmark &            &            &            &            & \checkmark \\
-  Rajat Srivastav    &            &            & \checkmark &            & \checkmark &            & \checkmark \\
+  Manya Verma        & $\checkmark$ & $\checkmark$ &              &              &              &              & \\
+  Rajat Srivastav    & $\checkmark$ & $\checkmark$ &              &              &              &              & \\
   \rowcolor{rhoRow}
-  Rajdeep Sanyal     &            &            &            & \checkmark &            &            & \checkmark \\
-  Sankalp            & \checkmark &            &            &            &            & \checkmark & \checkmark \\
+  Rajdeep Sanyal     & $\checkmark$ &              &              &              & $\checkmark$ &              & \\
+  Sankalp            & $\checkmark$ &              &              & $\checkmark$ &              &              & \\
   \bottomrule
-\end{tabularx}
+\end{tabularx}}
 
-\vspace{4pt}
-{\small\color{rhoGray}\itshape Update this table to match actual GitHub evidence before final submission.}
+\vspace{1.2cm}
+\noindent\textbf{Team Lead:} Mahir Abdullah\qquad\textbf{Date:} 28 April 2026
 
-\vspace{1.8cm}
-\noindent\textit{Declaration: We confirm the above contribution details are accurate and verifiable through GitHub Insights, PR history, and submitted artefacts.}
-
-\vspace{1.5cm}
-\noindent\textbf{Team Lead Signature:}\enspace\rule{7cm}{0.4pt}\qquad\textbf{Date:}\enspace\rule{3cm}{0.4pt}
+\vspace{0.6cm}
+{\small\color{rhoGray}\itshape Declaration: We confirm that the above contribution details are accurate and verifiable through GitHub Insights, PR history, and submitted artifacts.}
 
 \end{document}
