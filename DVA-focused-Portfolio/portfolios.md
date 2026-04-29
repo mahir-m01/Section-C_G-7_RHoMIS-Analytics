@@ -6,5 +6,5 @@
 | Manas Vivek Saxena | |
 | Manya Verma | |
 | Rajat Srivastav | |
-| Rajdeep Sanyal | |
+| Rajdeep Sanyal | [dvaportfolio.vercel.app](https://dvaportfolio.vercel.app/) |
 | Sankalp | |
