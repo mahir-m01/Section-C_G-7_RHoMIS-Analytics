@@ -2,7 +2,7 @@
 
 ## Published Dashboard
 
-https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION?publish=yes
+https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/RISKOVERVIEWMAP?publish=yes
 
 ## Views
 

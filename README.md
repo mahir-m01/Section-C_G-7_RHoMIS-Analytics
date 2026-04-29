@@ -1,11 +1,22 @@
+<div align="center">
+
+<img src="docs/assets/rhomis-logo.png" alt="RHoMIS Logo" width="220"/>
+
 # RHoMIS Analytics — DVA Capstone 2
 
-> **Newton School of Technology | Section C, Group 7 | Data Visualization & Analytics**
-> A multi-country analysis of smallholder food insecurity using Python, GitHub, and Tableau — converting 54,873 raw survey records into actionable agricultural intelligence for policymakers and development organisations.
+**Newton School of Technology | Section C, Group 7 | Data Visualization & Analytics**
+
+Food security analysis across 54,873 smallholder households — converting raw survey data into actionable intelligence for policymakers and development organisations.
 
 [![Tableau Public](https://img.shields.io/badge/Tableau-Published-blue?logo=tableau)](https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION)
 [![Dataset](https://img.shields.io/badge/Dataset-Harvard%20Dataverse-red)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi%3A10.7910%2FDVN%2FWS38SA)
 [![License](https://img.shields.io/badge/License-CC0%201.0-lightgrey)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+</div>
+
+---
+
+<img src="docs/assets/rhomis-hero.png" alt="RHoMIS — Advanced system for rural household surveys" width="100%"/>
 
 ---
 
@@ -104,7 +115,7 @@ scripts/etl_pipeline.py    ← Canonical cleaning implementation
 Tableau Dashboard          — 4 interactive views on Tableau Public
         │
         ▼
-Final Report PDF           — reports/RHoMIS-report.pdf
+Final Report PDF           — reports/project-report.pdf
 ```
 
 ---
@@ -138,7 +149,11 @@ Seven KPIs form the dashboard backbone, each directly connected to a project rec
 | Structural Drivers | Productivity quartile × irrigation, crop diversity, land scatter | [Open](https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/STRUCTURALDRIVERS) |
 | Income Position | Income rank vs. food shortage scatter, off-farm income by profile, quintile distribution | [Open](https://public.tableau.com/app/profile/rajdeep.sanyal/viz/RHoMISDASHBOARD/INCOMEPOSITION) |
 
-Screenshots: [`tableau/screenshots/`](tableau/screenshots/)
+<img src="tableau/screenshots/Risk-Overview.png" alt="D1 — Risk Overview Dashboard" width="100%"/>
+
+*D1 — Risk Overview: choropleth map of food shortage rates across 35 countries, with median months of shortage and country-level breakdown.*
+
+Screenshots of all 4 views: [`tableau/screenshots/`](tableau/screenshots/)
 
 ---
 
@@ -146,7 +161,7 @@ Screenshots: [`tableau/screenshots/`](tableau/screenshots/)
 
 1. **Food insecurity is the structural norm.** 67.7% of surveyed households (32,097 of 47,399 with valid responses) reported food shortage — confirming this is not an exception but a baseline condition across smallholder systems.
 
-2. **Irrigation is the clearest addressable gap.** Irrigated households face a 55.1% shortage rate vs. 72.4% for rainfed — a **17.4pp difference** — yet only 20.2% of households have irrigation access.
+2. **Irrigation is the clearest addressable gap.** Irrigated households face a 55.2% shortage rate vs. 71.5% for rainfed — a **16.3pp difference** — yet only 20.2% of households have irrigation access.
 
 3. **Land productivity quartile creates a 29.1pp spread.** Q1 households (lowest productivity) face 83% shortage vs. 54% for Q4. This gap is independent of country-level poverty and income.
 
@@ -164,7 +179,7 @@ Screenshots: [`tableau/screenshots/`](tableau/screenshots/)
 
 | Priority | Recommendation | Evidence | Estimated Effect |
 |---|---|---|---|
-| 1 | **Irrigation expansion** in the low-income rainfed cluster | 17.4pp gap; 0.3% cluster coverage | −17.4pp shortage per HH reached |
+| 1 | **Irrigation expansion** in the low-income rainfed cluster | 16.3pp gap; 0.3% cluster coverage | −16.3pp shortage per HH reached |
 | 2 | **Productivity support** for Q1 + Q2 farms (24,000 HH) | 29.1pp Q1–Q4 spread | −10 to 15pp shortage |
 | 3 | **Income diversification + education** for bottom quintile | 75.8% shortage rate in lowest quintile | −4 to 8pp shortage |
 
@@ -202,10 +217,14 @@ Section-C_G-7_RHoMIS-Analytics/
 │
 ├── reports/
 │   ├── project_report.tex                # LaTeX source
-│   └── RHoMIS-report.pdf                 # Final compiled report
+│   └── project-report.pdf                # Final compiled report
 │
 ├── docs/
-│   └── data_dictionary.md                # Full column definitions (46 fields)
+│   ├── data_dictionary.md                # Full column definitions (46 fields)
+│   └── assets/                           # Images used in README
+│
+├── DVA-focused-Portfolio/                # Portfolio links (team)
+├── DVA-oriented-Resume/                  # Resume PDF
 │
 └── logs/
     └── log.md                            # Project activity log
@@ -245,7 +264,7 @@ Section-C_G-7_RHoMIS-Analytics/
 - [x] Dashboard directly addresses the business problem across 4 views
 
 **Report**
-- [x] Final report compiled as PDF — `reports/RHoMIS-report.pdf`
+- [x] Final report compiled as PDF — `reports/project-report.pdf`
 
 ---
 
